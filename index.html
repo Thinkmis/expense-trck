@@ -1,311 +1,857 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Expense Tracker Dashboard</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Expense Cracker — Money Guide</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#f5efe6;
-  --card:#fffaf3;
-  --accent:#8b5e3c;
-  --accent-2:#c79a6a;
-  --muted:#7a6b60;
-  --danger:#e06a4a;
-  --success:#5aa172;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter, system-ui, -apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:#2f2722;padding:20px;}
-h2,h3{margin:0 0 12px 0;color:var(--accent);}
-.container{max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:20px;}
-.card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 10px 40px rgba(35,25,18,0.06);}
-.tabs{display:flex;gap:10px;margin-bottom:12px;}
-.tabs button{flex:1;padding:10px;border:none;border-radius:8px;cursor:pointer;font-weight:600;background:linear-gradient(180deg,var(--accent),var(--accent-2));color:white;}
-.tabs button.active{box-shadow:0 4px 12px rgba(0,0,0,0.2);}
-.section{display:none;}
-.section.active{display:block;}
-label{display:block;font-size:13px;color:var(--muted);margin-top:10px}
-input[type="text"], input[type="number"], select{width:100%; padding:10px 12px;margin-top:6px;border-radius:8px;border:1px solid rgba(120,100,85,0.12);background:white;font-size:15px;color:#2f2722;}
-.row{display:flex; gap:10px}
-.row > *{flex:1}
-button.btn{background:linear-gradient(180deg,var(--accent),var(--accent-2)); color:white; border:none; padding:10px 12px;border-radius:10px; cursor:pointer; font-weight:600; box-shadow:0 6px 18px rgba(139,94,60,0.12);}
-button.ghost{background:transparent;color:var(--accent); border:1px solid rgba(139,94,60,0.12); box-shadow:none;}
-button.danger{background:var(--danger)}
-.small{font-size:13px;padding:8px 10px;border-radius:8px}
-.summary{margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.summary .box{background:rgba(199,154,106,0.06);padding:10px;border-radius:8px;flex:1;text-align:center}
-.summary strong{display:block;font-size:20px;color:var(--accent)}
-.expense-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-.expense-card{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;background:linear-gradient(180deg,#fff,#fffaf6);border:1px solid rgba(120,100,85,0.04)}
-.left{display:flex;gap:12px;align-items:center}
-.badge{font-size:13px;padding:6px 8px;border-radius:8px;background:rgba(199,154,106,0.12);color:var(--accent);font-weight:600}
-.desc{font-size:14px;color:#2f2722}
-.amt{font-weight:700;color:var(--accent)}
-.trash{background:transparent;border:none;color:var(--danger);cursor:pointer;font-weight:700}
-footer.note{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+  :root{
+    --bg:#F7ECDD;         /* page background (soft beige) */
+    --card:#FDF4E9;       /* card background (very soft cream) */
+    --accent:#8b5e3c;     /* dark brown text/accent */
+    --accent-2:#c79a6a;   /* light golden brown accent */
+    --muted:#7a6b60;      /* muted text */
+    --danger:#e06a4a;
+    --success:#5aa172;
+    --glass: rgba(255,255,255,0.7);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial; background:linear-gradient(180deg,var(--bg), #fff); color:#2f2722;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    min-height: 100vh;
+  }
 
-/* End Day overlay */
-#endDayAnim{
-  position:fixed;inset:0;background:rgba(0,0,0,0.2);display:flex;justify-content:center;align-items:center;z-index:1000;display:none;
-}
-#endDayAnim .modal{
-  background:var(--card);padding:24px;border-radius:16px;text-align:center;position:relative;box-shadow:0 20px 60px rgba(45,30,20,0.12);
-}
-#endDayAnim button{margin-top:12px;}
-.falling{
-  position:fixed;font-size:24px;pointer-events:none;z-index:1001;user-select:none;
-  will-change: transform, opacity;
-}
+  /* NAVBAR */
+  .navbar{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px 28px; background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+    position:sticky; top:0; z-index:50; border-bottom:1px solid rgba(120,100,85,0.06);
+  }
+  .nav-left{display:flex;align-items:center;gap:12px}
+  .hamburger{width:44px;height:44px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;border:1px solid rgba(120,100,85,0.06);cursor:pointer}
+  .hamburger:focus{outline:2px solid rgba(139,94,60,0.18)}
+  .brand{font-weight:700;color:var(--accent);font-size:20px;display:flex;align-items:center;gap:10px;}
+  .brand-logo{height:36px;border-radius:8px;vertical-align:middle;}
+  .nav-right{display:flex;align-items:center;gap:12px}
+  .btn{padding:10px 18px;border-radius:10px;font-weight:600;border:none;cursor:pointer;font-size:14px;transition:all 0.2s;}
+  .btn-login{background:transparent;color:var(--accent);border:1px solid rgba(139,94,60,0.12)}
+  .btn-login:hover{background:rgba(139,94,60,0.05);}
+  .btn-sign{background:linear-gradient(180deg,var(--accent),var(--accent-2));color:white;box-shadow:0 4px 12px rgba(139,94,60,0.15);}
+  .btn-sign:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(139,94,60,0.2);}
+  .user-menu{display:flex;align-items:center;gap:10px;display:none;}
+  .user-avatar{width:36px;height:36px;border-radius:50%;background:var(--accent-2);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:14px;}
+  .user-name{color:var(--accent);font-weight:600;font-size:14px;}
+
+  /* SLIDE MENU */
+  .menu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.25);display:none;z-index:60}
+  .side-menu{position:fixed;left:0;top:0;height:100%;width:320px;background:var(--card);box-shadow: 8px 0 30px rgba(30,20,10,0.12);transform:translateX(-110%);transition:transform .36s;z-index:70;padding:20px}
+  .side-menu.open{transform:translateX(0)}
+  .side-menu h4{margin:0 0 10px;color:var(--accent)}
+  .side-menu ul{list-style:none;padding:0;margin:8px 0 0}
+  .side-menu li{padding:8px 6px;border-radius:8px;color:var(--muted);cursor:pointer}
+  .side-menu li:hover{background:rgba(120,100,85,0.04);color:var(--accent)}
+
+  /* HERO */
+  .hero{display:grid;grid-template-columns:1fr 460px;gap:28px;align-items:center;padding:36px 28px;}
+  @media(max-width:980px){ .hero{grid-template-columns:1fr;padding:20px;}}
+  .hero-left{max-width:760px}
+  .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(199,154,106,0.12);color:var(--accent);font-weight:600;font-size:13px}
+  .headline{font-size:38px;margin:18px 0 12px;color:var(--accent);line-height:1.1;}
+  .lede{color:var(--muted);font-size:17px;margin-bottom:18px;line-height:1.5;}
+  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .card-hero{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 14px 40px rgba(30,20,10,0.06);border:1px solid rgba(120,100,85,0.04)}
+
+  .hero-right { border-radius:12px; overflow:hidden; box-shadow:0 12px 36px rgba(30,20,10,0.06); }
+  .hero-right img{display:block;width:100%;height:100%;object-fit:cover;min-height:260px}
+
+  /* FEATURES */
+  .features{padding:24px 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:980px){ .features{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:560px){ .features{grid-template-columns:1fr} }
+  .feature{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(120,100,85,0.04);display:flex;gap:12px;align-items:flex-start;transition:transform 0.2s;}
+  .feature:hover{transform:translateY(-2px);}
+  .feature img{width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0}
+  .feature h5{margin:0 0 6px;color:var(--accent);font-size:16px;}
+  .feature p{margin:0;color:var(--muted);font-size:14px;line-height:1.4;}
+
+  /* ARTICLES */
+  .articles{padding:24px 28px;background:rgba(247,236,221,0.3);}
+  .articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:980px){ .articles-grid{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:560px){ .articles-grid{grid-template-columns:1fr} }
+  .article{background:white;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(20,20,20,0.06);border:1px solid rgba(120,100,85,0.05);transition:transform 0.2s;}
+  .article:hover{transform:translateY(-2px);}
+  .article img{width:100%;height:160px;object-fit:cover}
+  .article .body{padding:12px}
+  .article h4{margin:0;color:var(--accent);font-size:16px;}
+  .meta{font-size:13px;color:var(--muted);margin-top:6px}
+
+  /* FOOTER */
+  footer{padding:24px 28px;color:var(--muted);font-size:14px;border-top:1px solid rgba(120,100,85,0.04);margin-top:20px}
+
+  /* small helpers */
+  .muted{color:var(--muted)}
+  .pill{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(139,94,60,0.08);color:var(--accent);font-weight:600}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .center{text-align:center}
+
+  /* forms */
+  .form-row{display:flex;gap:12px}
+  .form-row input, .form-row select {flex:1}
+  input, select {padding:10px;border-radius:8px;border:1px solid rgba(120,100,85,0.08);font-size:14px;width:100%;}
+  label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px;}
+
+  /* modal */
+  .modal-back{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;align-items:center;justify-content:center;z-index:120}
+  .modal{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 20px 60px rgba(20,20,20,0.12);width:420px;max-width:94%;}
+  .modal h3{margin:0 0 10px;color:var(--accent)}
+  .modal .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
+  .modal input, .modal select{margin-bottom:10px;}
+
+  .note{font-size:13px;color:var(--muted);margin-top:8px;}
+
+  /* Dashboard Page - Hidden by default */
+  .dashboard-page{display:none;padding:20px;max-width:1200px;margin:0 auto;}
+  .dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:20px;margin-top:20px;}
+  .dashboard-card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 10px 30px rgba(30,20,10,0.06);border:1px solid rgba(120,100,85,0.04);}
+  .dashboard-card h3{margin-top:0;color:var(--accent);}
+  .expense-item{display:flex;justify-content:space-between;align-items:center;padding:10px;background:white;border-radius:8px;margin-bottom:8px;border:1px solid rgba(120,100,85,0.05);}
+  .expense-category{background:rgba(199,154,106,0.12);padding:4px 8px;border-radius:6px;font-size:12px;color:var(--accent);}
+  .expense-amount{font-weight:600;color:var(--accent);}
+  .summary-stats{display:flex;gap:15px;margin-top:15px;}
+  .stat-box{flex:1;background:rgba(199,154,106,0.06);padding:10px;border-radius:8px;text-align:center;}
+  .stat-label{font-size:12px;color:var(--muted);}
+  .stat-value{font-size:20px;font-weight:700;color:var(--accent);}
+
+  /* Stats Section */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:15px;margin:30px 28px;}
+  .stat-card{background:var(--card);padding:20px;border-radius:12px;text-align:center;}
+  .stat-number{font-size:32px;font-weight:700;color:var(--accent);margin:10px 0;}
+  .stat-desc{color:var(--muted);font-size:14px;}
+
+  /* Testimonial */
+  .testimonial{background:var(--card);padding:30px;border-radius:12px;margin:30px 28px;text-align:center;}
+  .testimonial-text{font-size:18px;color:var(--accent);font-style:italic;margin-bottom:15px;}
+  .testimonial-author{color:var(--muted);font-size:14px;}
 </style>
 </head>
 <body>
 
-<div class="container">
+<!-- NAVBAR -->
+<header class="navbar" role="banner">
+  <div class="nav-left">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" title="Menu">
+      <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="20" height="2" rx="1" fill="#8b5e3c"/>
+        <rect y="6" width="20" height="2" rx="1" fill="#8b5e3c"/>
+        <rect y="12" width="20" height="2" rx="1" fill="#8b5e3c"/>
+      </svg>
+    </button>
 
-  <div class="tabs">
-    <button class="tabBtn active" data-tab="profile">Profile</button>
-    <button class="tabBtn" data-tab="addExpense">Add Expense</button>
-    <button class="tabBtn" data-tab="graphs">Graphs</button>
-    <button class="tabBtn" data-tab="challenges">Challenges</button>
-    <button class="tabBtn" id="logoutBtn">Logout</button>
-  </div>
-
-  <!-- Profile Section -->
-  <div class="section active" id="profile">
-    <div class="card">
-      <h3>Profile Info</h3>
-      <p><strong>Name:</strong> <span id="pName"></span></p>
-      <p><strong>Email:</strong> <span id="pEmail"></span></p>
-      <p><strong>Age:</strong> <span id="pAge"></span></p>
-      <p><strong>Profession:</strong> <span id="pProfession"></span></p>
-      <p><strong>City:</strong> <span id="pCity"></span></p>
-      <p><strong>Phone:</strong> <span id="pPhone"></span></p>
+    <div class="brand" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1542223616-36e4f3269ef2?q=80&w=80&auto=format&fit=crop&ixlib=rb-4.0.3&s=2a6e4a1ee0bf2d4aaef6cfeee3d25a0b" alt="" class="brand-logo">
+      Expense Cracker
     </div>
   </div>
 
-  <!-- Add Expense Section -->
-  <div class="section" id="addExpense">
-    <div class="card">
-      <h3>Add Expense</h3>
-      <label for="category">Category</label>
-      <select id="category">
-        <option value="Food">Food</option>
-        <option value="Transport">Transport</option>
-        <option value="Shopping">Shopping</option>
-        <option value="Bills">Bills</option>
-        <option value="Medicine">Medicine</option>
-        <option value="Fun">Fun</option>
-        <option value="Other">Other</option>
-      </select>
-      <div id="customWrap" style="display:none">
-        <label for="custom">Custom category</label>
-        <input id="custom" type="text" placeholder="Custom category">
+  <div class="nav-right">
+    <!-- Login/Signup buttons (shown when logged out) -->
+    <div class="auth-buttons" id="authButtons">
+      <button class="btn btn-login" id="btnLoginTop">Login</button>
+      <button class="btn btn-sign" id="btnSignTop">Sign up</button>
+    </div>
+    
+    <!-- User menu (shown when logged in) -->
+    <div class="user-menu" id="userMenu">
+      <div class="user-avatar" id="userAvatar">U</div>
+      <span class="user-name" id="userName">User</span>
+      <button class="btn btn-login" id="logoutBtn" style="padding: 6px 12px;">Logout</button>
+    </div>
+    
+    <nav aria-label="Primary">
+      <a class="pill" href="#features">Resources</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Slide-out menu -->
+<div class="menu-backdrop" id="menuBackdrop"></div>
+<aside class="side-menu" id="sideMenu" aria-hidden="true">
+  <h4>Explore</h4>
+  <ul>
+    <li onclick="scrollToSection('features')">Banking & Budgeting</li>
+    <li onclick="scrollToSection('savings')">Budget Planning</li>
+    <li onclick="scrollToSection('invest')">Investment Planning</li>
+    <li onclick="scrollToSection('safety')">Scams & Online Safety</li>
+    <li onclick="scrollToSection('insurance')">Insurance</li>
+    <li onclick="scrollToSection('manage')">Manage Your Money</li>
+    <li onclick="scrollToSection('articles')">Articles & Guides</li>
+  </ul>
+
+  <hr style="margin:12px 0;border:none;border-top:1px solid rgba(120,100,85,0.04)">
+
+  <div style="display:flex;gap:8px" id="menuAuthButtons">
+    <button class="btn-sign" style="flex:1" id="menuSign">Create account</button>
+    <button class="btn btn-login" style="flex:1" id="menuLogin">Login</button>
+  </div>
+
+  <p style="margin-top:14px" class="note">Quick links & helpful resources to guide students and new earners.</p>
+</aside>
+
+<!-- HOMEPAGE CONTENT (shown by default) -->
+<main id="homepageContent">
+  <!-- HERO -->
+  <section class="hero" role="region" aria-label="Hero">
+    <div class="hero-left">
+      <span class="eyebrow">Money help • Student friendly</span>
+      <h1 class="headline">Master Your Money, Build Your Future</h1>
+      <p class="lede">Expense Cracker helps students and new earners track expenses, plan budgets, and learn simple investing. Start your journey to financial independence today with our practical, friendly tools.</p>
+
+      <div class="hero-ctas">
+        <button class="btn btn-sign" id="ctaSign">Get Started — It's Free</button>
+        <button class="btn btn-login" id="ctaLearn">Learn More</button>
       </div>
-      <label for="desc">Description</label>
-      <input id="desc" type="text" placeholder="e.g., lunch">
-      <label for="amt">Amount (৳)</label>
-      <input id="amt" type="number" placeholder="0.00">
-      <div class="row" style="margin-top:12px">
-        <button id="addBtn" class="btn">Add Expense</button>
-        <button id="clearToday" class="ghost small">Clear Today</button>
-      </div>
-      <div class="summary">
-        <div class="box">
-          <small class="muted">Today total</small>
-          <strong id="total">৳0.00</strong>
+
+      <div style="margin-top:18px" aria-hidden="true">
+        <div style="display:flex;gap:12px;margin-top:14px">
+          <div class="card-hero" style="flex:1">
+            <strong style="display:block;color:var(--accent)">Weekly spending</strong>
+            <div class="muted" style="margin-top:6px">See where your money goes and set a simple weekly budget.</div>
+          </div>
+          <div class="card-hero" style="flex:1">
+            <strong style="display:block;color:var(--accent)">Save goals</strong>
+            <div class="muted" style="margin-top:6px">Create small, realistic saving goals for the month.</div>
+          </div>
         </div>
-        <div class="box">
-          <small class="muted">Entries</small>
-          <strong id="count">0</strong>
+      </div>
+    </div>
+
+    <div class="hero-right" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2d4b6c5fbb2c5d6b3c5086a5b4b7d9c3" alt="money and notes">
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="stat-card">
+      <div class="stat-number">5,000+</div>
+      <div class="stat-desc">Students using Expense Cracker</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">৳2.5M+</div>
+      <div class="stat-desc">Total savings tracked</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">94%</div>
+      <div class="stat-desc">Improved spending habits</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">4.8★</div>
+      <div class="stat-desc">User satisfaction rating</div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="features" role="region" aria-label="Features">
+    <div class="feature">
+      <img src="https://images.unsplash.com/photo-1601597114397-5b2b1c3d7ad1?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=31c6a8f6b8f7c6e9a6f2b1a6d7f0ab3d" alt="Budgeting illustration">
+      <div>
+        <h5>Smart Budgeting</h5>
+        <p>Simple steps to track weekly spending and set realistic budgets using our easy tracker. Perfect for student life.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=9b7f8c8cf8e2b3b0a1b2c3d4e5f6a7b8" alt="Saving illustration">
+      <div>
+        <h5>Micro-Saving</h5>
+        <p>Start with small goals, build momentum, and celebrate progress. Designed specifically for student budgets.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <img src="https://images.unsplash.com/photo-1531168675123-6a6b2b6b8e0a?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=5e6d7b3a4c2b9a8d7e6f1c2b3a4d5e6f" alt="Investing illustration">
+      <div>
+        <h5>Beginner Investing</h5>
+        <p>Learn how to grow your money safely with beginner-friendly concepts explained simply. No prior knowledge needed.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <img src="https://images.unsplash.com/photo-1508385082359-f2e9f1b8a14d?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=d3bfc7b6e9a6b8c8d9e1f2a3b4c5d6e7" alt="Safety illustration">
+      <div>
+        <h5>Online Safety</h5>
+        <p>Simple rules to stay safe online: spotting scams, protecting your accounts, and avoiding common fraud tactics.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <img src="https://images.unsplash.com/photo-1489945052260-4f21c52268b8?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d" alt="Insurance illustration">
+      <div>
+        <h5>Insurance Basics</h5>
+        <p>Understand basic insurance terms and what matters for students and young adults. Make informed decisions.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d" alt="Tools illustration">
+      <div>
+        <h5>Practical Tools</h5>
+        <p>Calculators, templates and motivational ideas to help form better money habits. All in one place.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="testimonial">
+    <div class="testimonial-text">
+      "Expense Cracker helped me save 30% of my monthly allowance as a student. The simple tracking made all the difference!"
+    </div>
+    <div class="testimonial-author">— Sarah, University Student</div>
+  </section>
+
+  <!-- ARTICLES -->
+  <section id="articles" class="articles" role="region" aria-label="Articles">
+    <h3 style="margin:0 0 12px;color:var(--accent);font-size:24px;">Guides & Articles</h3>
+    <div class="articles-grid">
+      <article class="article">
+        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7f6f6e6d5c4b3a2f1e0d9c8b7a6e5d4c" alt="Student budgeting">
+        <div class="body">
+          <h4>5 Student Budget Hacks That Actually Work</h4>
+          <div class="meta">Budgeting • 4 min read</div>
+          <p class="note" style="margin-top:8px">Little changes — like packing lunch or tracking transport — can save more than you think. Try one this week.</p>
+        </div>
+      </article>
+
+      <article class="article">
+        <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=ff6a9e3a4c2b9a8d7a6f5e4b3c2d1e0f" alt="Investing basics">
+        <div class="body">
+          <h4>Beginner Guide: Investing for Young Adults</h4>
+          <div class="meta">Investing • 6 min read</div>
+          <p class="note" style="margin-top:8px">A friendly intro to how to grow your money without taking unnecessary risks. Start with just ৳500.</p>
+        </div>
+      </article>
+
+      <article class="article">
+        <img src="https://images.unsplash.com/photo-1488998427799-e3362cec87c9?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=c9b8a7d6e5f4a3b2c1d0e9f8a7b6c5d4" alt="Online safety">
+        <div class="body">
+          <h4>How to Spot Online Scams — Quick Checklist</h4>
+          <div class="meta">Safety • 3 min read</div>
+          <p class="note" style="margin-top:8px">Never give out passwords or OTPs. This short checklist helps you stay safe online and protect your money.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center">
+      <div>
+        <strong style="color:var(--accent)">Expense Cracker</strong>
+        <div class="muted">Practical money tips & simple tools for students.</div>
+      </div>
+      <div class="muted">© <span id="year"></span> Expense Cracker • All rights reserved</div>
+    </div>
+  </footer>
+</main>
+
+<!-- DASHBOARD PAGE (hidden by default) -->
+<div class="dashboard-page" id="dashboardPage">
+  <div style="max-width:1200px; margin:0 auto; padding:20px;">
+    <!-- Dashboard Header -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+      <div>
+        <h1 style="color:var(--accent); margin:0;">Your Dashboard</h1>
+        <p class="muted" style="margin-top:5px;">Welcome back, <span id="dashboardUserName">User</span>!</p>
+      </div>
+      <button class="btn btn-login" id="backToHomeBtn">← Back to Home</button>
+    </div>
+
+    <!-- Dashboard Stats -->
+    <div class="summary-stats" style="margin-bottom:30px;">
+      <div class="stat-box">
+        <div class="stat-label">Today's Total</div>
+        <div class="stat-value" id="todayTotal">৳0.00</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">This Month</div>
+        <div class="stat-value" id="monthTotal">৳0.00</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Total Entries</div>
+        <div class="stat-value" id="totalEntries">0</div>
+      </div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="dashboard-grid">
+      <!-- Add Expense -->
+      <div class="dashboard-card">
+        <h3>Add New Expense</h3>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="expenseCategory" class="form-control">
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Bills">Bills</option>
+            <option value="Education">Education</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" id="expenseDesc" class="form-control" placeholder="e.g., Lunch at canteen">
+        </div>
+        <div class="form-group">
+          <label>Amount (৳)</label>
+          <input type="number" id="expenseAmount" class="form-control" placeholder="0.00" min="0" step="0.01">
+        </div>
+        <button class="btn btn-sign" id="addExpenseBtn" style="width:100%;">Add Expense</button>
+        <button class="btn btn-login" id="clearTodayExpenses" style="width:100%; margin-top:10px;">Clear Today's Expenses</button>
+      </div>
+
+      <!-- Recent Expenses -->
+      <div class="dashboard-card">
+        <h3>Recent Expenses</h3>
+        <div id="recentExpensesList" style="max-height:300px; overflow-y:auto;">
+          <p class="muted" style="text-align:center; padding:20px;">No expenses recorded yet</p>
         </div>
       </div>
-      <div style="margin-top:12px">
-        <button id="endDayBtn" class="btn">End of Day</button>
+
+      <!-- User Profile -->
+      <div class="dashboard-card">
+        <h3>Your Profile</h3>
+        <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
+          <div class="user-avatar" style="width:60px; height:60px; font-size:24px;" id="dashboardAvatar">U</div>
+          <div>
+            <div style="font-weight:600; color:var(--accent);" id="dashboardFullName">User Name</div>
+            <div class="muted" id="dashboardUserEmail">user@example.com</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Profession</label>
+          <div id="dashboardProfession">Student</div>
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <div id="dashboardLocation">-</div>
+        </div>
+        <div class="form-group">
+          <label>Member Since</label>
+          <div id="dashboardJoinDate">-</div>
+        </div>
       </div>
-      <footer class="note">Press Enter in description or amount to add faster.</footer>
-      <div class="expense-list" id="listWrap"></div>
-    </div>
-  </div>
 
-  <!-- Graphs Section -->
-  <div class="section" id="graphs">
-    <div class="card">
-      <h3>Expenses Graph</h3>
-      <div style="display:flex;gap:10px;margin-bottom:12px">
-        <button class="graphBtn" data-period="weekly">Weekly</button>
-        <button class="graphBtn" data-period="monthly">Monthly</button>
-        <button class="graphBtn" data-period="yearly">Yearly</button>
+      <!-- Spending Overview -->
+      <div class="dashboard-card">
+        <h3>Spending Overview</h3>
+        <div style="height:200px; display:flex; align-items:flex-end; gap:10px; margin-top:20px;" id="spendingChart">
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center;">
+            <div style="background:var(--accent-2); width:80%; border-radius:6px 6px 0 0;" id="day1"></div>
+            <div class="muted" style="font-size:12px; margin-top:5px;">Mon</div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center;">
+            <div style="background:var(--accent-2); width:60%; border-radius:6px 6px 0 0;" id="day2"></div>
+            <div class="muted" style="font-size:12px; margin-top:5px;">Tue</div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center;">
+            <div style="background:var(--accent-2); width:90%; border-radius:6px 6px 0 0;" id="day3"></div>
+            <div class="muted" style="font-size:12px; margin-top:5px;">Wed</div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center;">
+            <div style="background:var(--accent-2); width:40%; border-radius:6px 6px 0 0;" id="day4"></div>
+            <div class="muted" style="font-size:12px; margin-top:5px;">Thu</div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center;">
+            <div style="background:var(--accent-2); width:70%; border-radius:6px 6px 0 0;" id="day5"></div>
+            <div class="muted" style="font-size:12px; margin-top:5px;">Today</div>
+          </div>
+        </div>
       </div>
-      <canvas id="expenseChart" height="150"></canvas>
     </div>
   </div>
-
-  <!-- Challenges Section -->
-  <div class="section" id="challenges">
-    <div class="card">
-      <h3>Challenges</h3>
-      <ul>
-        <li>Save 20% of your income this month</li>
-        <li>Limit daily spending to ৳50</li>
-        <li>Track all expenses for a week</li>
-      </ul>
-    </div>
-  </div>
-
 </div>
 
-<!-- End Day Animation Overlay -->
-<div id="endDayAnim">
-  <div class="modal">
-    <h3>Great Job Today! 🎉</h3>
-    <p>Keep building your habit. Little steps lead to big wins!</p>
-    <button id="closeAnim" class="btn">Close</button>
+<!-- Login Modal -->
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <h3 id="loginTitle">Login to Expense Cracker</h3>
+    <label>Email or username</label>
+    <input id="loginModalEmail" type="text" placeholder="Email or username">
+    <label style="margin-top:8px">Password</label>
+    <input id="loginModalPass" type="password" placeholder="Password">
+    <div class="actions">
+      <button class="btn-sign" id="loginSubmit">Login</button>
+      <button id="loginCancel" class="btn-login">Cancel</button>
+    </div>
+    <p class="note" style="margin-top:10px">Demo: Accounts are saved locally on your device only.</p>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Register Modal -->
+<div class="modal-back" id="modalBackReg">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="regTitle">
+    <h3 id="regTitle">Create Your Account</h3>
+    <label>Full name</label>
+    <input id="reg_name" type="text" placeholder="Your full name">
+    <label style="margin-top:8px">Email</label>
+    <input id="reg_email" type="email" placeholder="you@example.com">
+    <div class="form-row" style="margin-top:8px">
+      <div><label>Profession</label><input id="reg_prof" type="text" placeholder="e.g., Student"></div>
+      <div><label>Age</label><input id="reg_age" type="number" placeholder="Age" min="12" max="120"></div>
+    </div>
+    <label style="margin-top:8px">City / Location</label>
+    <input id="reg_city" type="text" placeholder="City">
+    <label style="margin-top:8px">Phone</label>
+    <input id="reg_phone" type="text" placeholder="+8801XXXXXXXXX">
+    <label style="margin-top:8px">Set a password</label>
+    <input id="reg_pass" type="password" placeholder="Create a password (min 4)">
+    <div class="actions">
+      <button class="btn-sign" id="regSubmit">Create account</button>
+      <button id="regCancel" class="btn-login">Cancel</button>
+    </div>
+    <p class="note" style="margin-top:8px">Your registration is saved locally for demo purposes only.</p>
+  </div>
+</div>
+
 <script>
-// User setup
-let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-if(!currentUser){
-    const name = prompt("Enter your name:");
-    const email = prompt("Enter your email:");
-    currentUser = {name,email,expenses:[]};
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-}
+  // small helpers
+  const $ = id => document.getElementById(id);
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-// Tabs
-document.querySelectorAll('.tabBtn').forEach(btn=>{
-  btn.onclick = ()=>{
-    document.querySelectorAll('.tabBtn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
-    if(btn.id==='logoutBtn'){ localStorage.removeItem('currentUser'); location.reload(); return; }
-    document.getElementById(btn.dataset.tab).classList.add('active');
+  // MENU logic
+  const hamburger = $('hamburger'), sideMenu = $('sideMenu'), menuBackdrop = $('menuBackdrop');
+  function openMenu(){ sideMenu.classList.add('open'); menuBackdrop.style.display='block'; sideMenu.setAttribute('aria-hidden','false'); }
+  function closeMenu(){ sideMenu.classList.remove('open'); menuBackdrop.style.display='none'; sideMenu.setAttribute('aria-hidden','true'); }
+  hamburger.addEventListener('click', openMenu); menuBackdrop.addEventListener('click', closeMenu);
+  document.getElementById('menuLogin').addEventListener('click', ()=>{ closeMenu(); openLogin(); });
+  document.getElementById('menuSign').addEventListener('click', ()=>{ closeMenu(); openRegister(); });
+
+  function scrollToSection(id){
+    const el = document.getElementById(id);
+    if (el) { el.scrollIntoView({behavior:'smooth', block:'start'}); closeMenu(); }
   }
-});
 
-// Load profile
-document.getElementById('pName').textContent=currentUser.name;
-document.getElementById('pEmail').textContent=currentUser.email;
-document.getElementById('pAge').textContent=currentUser.age||'';
-document.getElementById('pProfession').textContent=currentUser.profession||'';
-document.getElementById('pCity').textContent=currentUser.city||'';
-document.getElementById('pPhone').textContent=currentUser.phone||'';
+  // MODAL logic
+  const modalBack = $('modalBack'), modalBackReg = $('modalBackReg');
+  function openLogin(){ modalBack.style.display='flex'; $('loginModalEmail').focus(); }
+  function closeLogin(){ modalBack.style.display='none'; }
+  function openRegister(){ modalBackReg.style.display='flex'; $('reg_name').focus(); }
+  function closeRegister(){ modalBackReg.style.display='none'; }
 
-// Expenses
-const category=document.getElementById('category');
-const customWrap=document.getElementById('customWrap');
-const custom=document.getElementById('custom');
-const desc=document.getElementById('desc');
-const amt=document.getElementById('amt');
-const addBtn=document.getElementById('addBtn');
-const clearToday=document.getElementById('clearToday');
-const listWrap=document.getElementById('listWrap');
-const totalEl=document.getElementById('total');
-const countEl=document.getElementById('count');
+  // Event listeners for buttons
+  $('btnLoginTop').addEventListener('click', openLogin);
+  $('btnSignTop').addEventListener('click', openRegister);
+  $('ctaSign').addEventListener('click', openRegister);
+  $('ctaLearn').addEventListener('click', () => scrollToSection('features'));
 
-let expenses=currentUser.expenses||[];
+  // Cancel handlers
+  $('loginCancel').addEventListener('click', closeLogin);
+  $('regCancel').addEventListener('click', closeRegister);
 
-function todayStr(date=new Date()){
-  const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,'0'),d=String(date.getDate()).padStart(2,'0');
-  return `${y}-${m}-${d}`;
-}
-function save(){currentUser.expenses=expenses;localStorage.setItem('currentUser',JSON.stringify(currentUser));}
+  // Local storage users (simple demo)
+  const USERS_KEY = 'expense_cracker_users_v2';
+  const EXPENSES_KEY = 'expense_cracker_expenses_v2';
+  const SESSION_KEY = 'expense_cracker_session';
+  
+  function usersRead(){ try { return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); } catch(e) { return []; } }
+  function usersWrite(u){ localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+  function expensesRead(){ try { return JSON.parse(localStorage.getItem(EXPENSES_KEY) || '[]'); } catch(e) { return []; } }
+  function expensesWrite(e){ localStorage.setItem(EXPENSES_KEY, JSON.stringify(e)); }
+  
+  // Check if user is logged in
+  function checkLoginStatus() {
+    const session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+    if (session && session.userId) {
+      const users = usersRead();
+      const user = users.find(u => u.id === session.userId);
+      if (user) {
+        showUserMenu(user);
+        return user;
+      }
+    }
+    return null;
+  }
 
-function render(){
-  listWrap.innerHTML='';
-  const today=todayStr();
-  const todayExpenses=expenses.filter(e=>e.date===today);
-  let total=0;
-  if(todayExpenses.length===0){ listWrap.innerHTML='<p class="muted">No expenses today.</p>'; }
-  todayExpenses.forEach(e=>{
-    total+=Number(e.amt);
-    const card=document.createElement('div');
-    card.className='expense-card';
-    card.innerHTML=`<div class="left"><div class="badge">${e.category}</div><div class="desc">${e.desc}</div></div><div class="amt">৳${e.amt.toFixed(2)}</div><button class="trash" data-id="${e.id}">✕</button>`;
-    listWrap.appendChild(card);
-    card.querySelector('.trash').onclick=()=>{expenses=expenses.filter(x=>x.id!==e.id); save(); render(); updateChart(currentPeriod);}
+  // Show user menu when logged in
+  function showUserMenu(user) {
+    $('authButtons').style.display = 'none';
+    $('userMenu').style.display = 'flex';
+    $('userName').textContent = user.name;
+    $('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+    
+    // Update side menu
+    $('menuAuthButtons').innerHTML = `
+      <div style="display:flex; align-items:center; gap:10px; padding:10px; background:rgba(139,94,60,0.05); border-radius:8px; width:100%;">
+        <div style="width:32px; height:32px; border-radius:50%; background:var(--accent-2); display:flex; align-items:center; justify-content:center; color:white; font-weight:600;">${user.name.charAt(0).toUpperCase()}</div>
+        <div>
+          <div style="font-weight:600; color:var(--accent); font-size:14px;">${user.name}</div>
+          <div style="font-size:12px; color:var(--muted);">View Dashboard</div>
+        </div>
+      </div>
+    `;
+    $('menuAuthButtons').onclick = () => {
+      closeMenu();
+      showDashboard(user);
+    };
+  }
+
+  // Show auth buttons when logged out
+  function showAuthButtons() {
+    $('authButtons').style.display = 'flex';
+    $('userMenu').style.display = 'none';
+    
+    // Reset side menu
+    $('menuAuthButtons').innerHTML = `
+      <button class="btn-sign" style="flex:1" id="menuSign">Create account</button>
+      <button class="btn btn-login" style="flex:1" id="menuLogin">Login</button>
+    `;
+    document.getElementById('menuLogin').addEventListener('click', ()=>{ closeMenu(); openLogin(); });
+    document.getElementById('menuSign').addEventListener('click', ()=>{ closeMenu(); openRegister(); });
+  }
+
+  // Show homepage and hide dashboard
+  function showHomepage() {
+    $('homepageContent').style.display = 'block';
+    $('dashboardPage').style.display = 'none';
+  }
+
+  // Show dashboard and hide homepage
+  function showDashboard(user) {
+    $('homepageContent').style.display = 'none';
+    $('dashboardPage').style.display = 'block';
+    
+    // Update dashboard with user info
+    updateDashboard(user);
+  }
+
+  // Update dashboard with user data
+  function updateDashboard(user) {
+    $('dashboardUserName').textContent = user.name;
+    $('dashboardFullName').textContent = user.name;
+    $('dashboardUserEmail').textContent = user.email;
+    $('dashboardAvatar').textContent = user.name.charAt(0).toUpperCase();
+    $('dashboardProfession').textContent = user.profession || 'Not specified';
+    $('dashboardLocation').textContent = user.city || 'Not specified';
+    $('dashboardJoinDate').textContent = user.created ? new Date(user.created).toLocaleDateString() : 'Recently';
+    
+    // Load user's expenses
+    loadUserExpenses(user.id);
+  }
+
+  // Load and display user's expenses
+  function loadUserExpenses(userId) {
+    const expenses = expensesRead();
+    const userExpenses = expenses.filter(exp => exp.userId === userId);
+    
+    // Sort by date (newest first)
+    userExpenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+    
+    // Update stats
+    const today = new Date().toISOString().split('T')[0];
+    const todayExpenses = userExpenses.filter(exp => exp.date === today);
+    const todayTotal = todayExpenses.reduce((sum, exp) => sum + parseFloat(exp.amount), 0);
+    
+    const currentMonth = new Date().toISOString().slice(0, 7); // YYYY-MM
+    const monthExpenses = userExpenses.filter(exp => exp.date.startsWith(currentMonth));
+    const monthTotal = monthExpenses.reduce((sum, exp) => sum + parseFloat(exp.amount), 0);
+    
+    $('todayTotal').textContent = '৳' + todayTotal.toFixed(2);
+    $('monthTotal').textContent = '৳' + monthTotal.toFixed(2);
+    $('totalEntries').textContent = userExpenses.length;
+    
+    // Update recent expenses list
+    const recentExpensesList = $('recentExpensesList');
+    if (userExpenses.length === 0) {
+      recentExpensesList.innerHTML = '<p class="muted" style="text-align:center; padding:20px;">No expenses recorded yet</p>';
+    } else {
+      recentExpensesList.innerHTML = userExpenses.slice(0, 5).map(exp => `
+        <div class="expense-item">
+          <div>
+            <div style="font-weight:600;">${exp.description}</div>
+            <div style="font-size:12px; color:var(--muted);">
+              ${exp.date} • <span class="expense-category">${exp.category}</span>
+            </div>
+          </div>
+          <div class="expense-amount">৳${parseFloat(exp.amount).toFixed(2)}</div>
+        </div>
+      `).join('');
+    }
+  }
+
+  // Register handler
+  $('regSubmit').addEventListener('click', ()=>{
+    const name = $('reg_name').value.trim();
+    const email = $('reg_email').value.trim().toLowerCase();
+    const prof = $('reg_prof').value.trim();
+    const age = $('reg_age').value.trim();
+    const city = $('reg_city').value.trim();
+    const phone = $('reg_phone').value.trim();
+    const pass = $('reg_pass').value;
+    
+    if (!name || !email || pass.length < 4){ alert('Please fill name, email and a password (at least 4 characters)'); return; }
+    
+    const users = usersRead();
+    if (users.find(u=>u.email===email)){ alert('Email already registered'); return; }
+    
+    const id = Date.now().toString(36);
+    const user = { 
+      id, 
+      name, 
+      email, 
+      prof, 
+      age, 
+      city, 
+      phone, 
+      password: pass, 
+      created: new Date().toISOString() 
+    };
+    
+    users.push(user);
+    usersWrite(users);
+    
+    // Auto-login after registration
+    localStorage.setItem(SESSION_KEY, JSON.stringify({ userId: id }));
+    showUserMenu(user);
+    showDashboard(user);
+    
+    closeRegister();
   });
-  totalEl.textContent='৳'+total.toFixed(2);
-  countEl.textContent=todayExpenses.length;
-}
 
-function addExpenseFn(){
-  const cat=category.value==='Other'? (custom.value.trim()||'Other'):category.value;
-  const d=desc.value.trim()||'(no note)';
-  const a=parseFloat(amt.value);
-  if(!a||a<=0){alert('Enter valid amount');return;}
-  const item={id:Date.now(),date:todayStr(),category:cat,desc:d,amt:a};
-  expenses.push(item);save();render();updateChart(currentPeriod);
-  desc.value='';amt.value='';if(category.value==='Other') custom.value='';desc.focus();
-}
+  // Login handler
+  $('loginSubmit').addEventListener('click', ()=>{
+    const identifier = $('loginModalEmail').value.trim().toLowerCase();
+    const pass = $('loginModalPass').value;
+    
+    if (!identifier || !pass){ alert('Enter email/username and password'); return; }
+    
+    const users = usersRead();
+    const user = users.find(u => (u.email===identifier || u.name.toLowerCase()===identifier) && u.password===pass);
+    
+    if (!user){ 
+      alert('User not found or wrong password'); 
+      return; 
+    }
+    
+    // Save session
+    localStorage.setItem(SESSION_KEY, JSON.stringify({ userId: user.id }));
+    
+    // Update UI
+    showUserMenu(user);
+    showDashboard(user);
+    closeLogin();
+  });
 
-addBtn.onclick=addExpenseFn;
-[desc,amt,custom].forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'){addExpenseFn();}}));
-clearToday.onclick=()=>{const t=todayStr();expenses=expenses.filter(e=>e.date!==t);save();render();updateChart(currentPeriod);}
-category.onchange=()=>{customWrap.style.display=category.value==='Other'?'block':'none';if(category.value!=='Other')custom.value='';}
-render();
+  // Logout handler
+  $('logoutBtn').addEventListener('click', () => {
+    if (confirm('Are you sure you want to logout?')) {
+      localStorage.removeItem(SESSION_KEY);
+      showAuthButtons();
+      showHomepage();
+    }
+  });
 
-// Graphs
-let currentPeriod='weekly';
-const ctx=document.getElementById('expenseChart').getContext('2d');
-let chart;
+  // Back to home button
+  $('backToHomeBtn').addEventListener('click', showHomepage);
 
-function updateChart(period){
-  currentPeriod=period;
-  document.querySelectorAll('.graphBtn').forEach(b=>b.classList.remove('active'));
-  document.querySelector(`.graphBtn[data-period="${period}"]`).classList.add('active');
-  const now=new Date(); let labels=[],data=[];
-  if(period==='weekly'){
-    labels=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    data=labels.map((_,i)=>{
-      const d=new Date();d.setDate(now.getDate()-now.getDay()+i);
-      return expenses.filter(e=>e.date===todayStr(d)).reduce((s,x)=>s+x.amt,0);
-    });
-  }else if(period==='monthly'){
-    labels=Array.from({length:30},(_,i)=>i+1);
-    data=labels.map(d=>expenses.filter(e=>new Date(e.date).getDate()===d).reduce((s,x)=>s+x.amt,0));
-  }else{
-    labels=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    data=labels.map((_,i)=>expenses.filter(e=>new Date(e.date).getMonth()===i).reduce((s,x)=>s+x.amt,0));
-  }
-  if(chart) chart.destroy();
-  chart=new Chart(ctx,{type:'bar',data:{labels,datasets:[{label:'Expenses',data,backgroundColor:'rgba(139,94,60,0.8)'}]},options:{responsive:true,plugins:{legend:{display:false}}}});
-}
-document.querySelectorAll('.graphBtn').forEach(btn=>btn.onclick=()=>updateChart(btn.dataset.period));
-updateChart('weekly');
+  // Add expense from dashboard
+  $('addExpenseBtn').addEventListener('click', () => {
+    const session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+    if (!session) {
+      alert('Please login first');
+      return;
+    }
+    
+    const category = $('expenseCategory').value;
+    const description = $('expenseDesc').value.trim();
+    const amount = $('expenseAmount').value;
+    
+    if (!description || !amount || parseFloat(amount) <= 0) {
+      alert('Please enter a valid description and amount');
+      return;
+    }
+    
+    const expense = {
+      id: Date.now().toString(),
+      userId: session.userId,
+      date: new Date().toISOString().split('T')[0],
+      category: category,
+      description: description,
+      amount: parseFloat(amount),
+      createdAt: new Date().toISOString()
+    };
+    
+    const expenses = expensesRead();
+    expenses.push(expense);
+    expensesWrite(expenses);
+    
+    // Clear form
+    $('expenseDesc').value = '';
+    $('expenseAmount').value = '';
+    
+    // Reload expenses
+    const users = usersRead();
+    const user = users.find(u => u.id === session.userId);
+    if (user) {
+      loadUserExpenses(user.id);
+    }
+    
+    alert('Expense added successfully!');
+  });
 
-// End of Day Animation
-const endDayBtn=document.getElementById('endDayBtn');
-const endDayAnim=document.getElementById('endDayAnim');
-const closeAnim=document.getElementById('closeAnim');
+  // Clear today's expenses
+  $('clearTodayExpenses').addEventListener('click', () => {
+    if (!confirm('Clear all expenses for today?')) return;
+    
+    const session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+    if (!session) return;
+    
+    const today = new Date().toISOString().split('T')[0];
+    const expenses = expensesRead();
+    const filteredExpenses = expenses.filter(exp => !(exp.userId === session.userId && exp.date === today));
+    
+    expensesWrite(filteredExpenses);
+    
+    const users = usersRead();
+    const user = users.find(u => u.id === session.userId);
+    if (user) {
+      loadUserExpenses(user.id);
+    }
+    
+    alert('Today\'s expenses cleared!');
+  });
 
-endDayBtn.onclick=()=>{
-  endDayAnim.style.display='flex';
-  spawnWinterBears(30);
-}
+  // Close modals on ESC
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeLogin(); closeRegister(); closeMenu(); }
+  });
 
-closeAnim.onclick=()=>{endDayAnim.style.display='none';document.querySelectorAll('.falling').forEach(e=>e.remove());}
+  // Close modals when clicking outside
+  modalBack.addEventListener('click', (ev)=> { if (ev.target === modalBack) closeLogin(); });
+  modalBackReg.addEventListener('click', (ev)=> { if (ev.target === modalBackReg) closeRegister(); });
 
-// Spawn bears
-function spawnWinterBears(n){
-  const emojis=['🐻❄️','🐻❄️','🐻❄️','🐻❄️','🐻❄️']; // placeholder for Winterbear sticker emojis
-  for(let i=0;i<n;i++){
-    const el=document.createElement('div');
-    el.className='falling';
-    el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-    document.body.appendChild(el);
-    const startX=Math.random()*window.innerWidth;
-    const duration=3000+Math.random()*2000;
-    el.style.left=startX+'px';
-    el.style.top='-50px';
-    const endY=window.innerHeight+50;
-    el.animate([{transform:'translateY(0) rotate(0deg)'},{transform:`translateY(${endY}px) rotate(${Math.random()*720-360}deg)`}],{duration:duration, easing:'linear'});
-    setTimeout(()=>el.remove(),duration);
-  }
-}
+  // Initialize
+  window.addEventListener('DOMContentLoaded', () => {
+    const user = checkLoginStatus();
+    if (user) {
+      showUserMenu(user);
+    } else {
+      showAuthButtons();
+    }
+    
+    // Check if we should show dashboard from URL
+    if (window.location.hash === '#dashboard') {
+      const user = checkLoginStatus();
+      if (user) {
+        showDashboard(user);
+      }
+    }
+  });
 </script>
 </body>
 </html>
-
