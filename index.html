@@ -1,415 +1,337 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Expense Cracker — Money Guide</title>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Expense Tracker</title>
 <style>
-  :root{
-    --bg:#F7ECDD;         /* page background (soft beige) */
-    --card:#FDF4E9;       /* card background (very soft cream) */
-    --accent:#8b5e3c;     /* dark brown text/accent */
-    --accent-2:#c79a6a;   /* light golden brown accent */
-    --muted:#7a6b60;      /* muted text */
-    --danger:#e06a4a;
-    --success:#5aa172;
-    --glass: rgba(255,255,255,0.7);
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial; background:linear-gradient(180deg,var(--bg), #fff); color:#2f2722;
-    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-  }
-
-  /* NAVBAR */
-  .navbar{
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-    padding:16px 28px; background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
-    position:sticky; top:0; z-index:50; border-bottom:1px solid rgba(120,100,85,0.06);
-  }
-  .nav-left{display:flex;align-items:center;gap:12px}
-  .hamburger{width:44px;height:44px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;border:1px solid rgba(120,100,85,0.06);cursor:pointer}
-  .hamburger:focus{outline:2px solid rgba(139,94,60,0.18)}
-  .brand{font-weight:700;color:var(--accent);font-size:20px}
-  .nav-right{display:flex;align-items:center;gap:10px}
-  .btn{padding:8px 12px;border-radius:10px;font-weight:600;border:none;cursor:pointer}
-  .btn-login{background:transparent;color:var(--accent);border:1px solid rgba(139,94,60,0.12)}
-  .btn-sign{background:linear-gradient(180deg,var(--accent),var(--accent-2));color:white}
-
-  /* SLIDE MENU */
-  .menu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.25);display:none;z-index:60}
-  .side-menu{position:fixed;left:0;top:0;height:100%;width:320px;background:var(--card);box-shadow: 8px 0 30px rgba(30,20,10,0.12);transform:translateX(-110%);transition:transform .36s;z-index:70;padding:20px}
-  .side-menu.open{transform:translateX(0)}
-  .side-menu h4{margin:0 0 10px;color:var(--accent)}
-  .side-menu ul{list-style:none;padding:0;margin:8px 0 0}
-  .side-menu li{padding:8px 6px;border-radius:8px;color:var(--muted);cursor:pointer}
-  .side-menu li:hover{background:rgba(120,100,85,0.04);color:var(--accent)}
-
-  /* HERO */
-  .hero{display:grid;grid-template-columns:1fr 460px;gap:28px;align-items:center;padding:36px 28px;}
-  @media(max-width:980px){ .hero{grid-template-columns:1fr;padding:20px;}}
-  .hero-left{max-width:760px}
-  .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(199,154,106,0.12);color:var(--accent);font-weight:600;font-size:13px}
-  .headline{font-size:34px;margin:18px 0 12px;color:var(--accent);line-height:1.06}
-  .lede{color:var(--muted);font-size:16px;margin-bottom:18px}
-  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
-  .card-hero{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 14px 40px rgba(30,20,10,0.06);border:1px solid rgba(120,100,85,0.04)}
-
-  .hero-right { border-radius:12px; overflow:hidden; box-shadow:0 12px 36px rgba(30,20,10,0.06); }
-  .hero-right img{display:block;width:100%;height:100%;object-fit:cover;min-height:260px}
-
-  /* FEATURES */
-  .features{padding:24px 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  @media(max-width:980px){ .features{grid-template-columns:repeat(2,1fr)} }
-  @media(max-width:560px){ .features{grid-template-columns:1fr} }
-  .feature{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(120,100,85,0.04);display:flex;gap:12px;align-items:flex-start}
-  .feature img{width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0}
-  .feature h5{margin:0 0 6px;color:var(--accent)}
-  .feature p{margin:0;color:var(--muted);font-size:14px}
-
-  /* ARTICLES */
-  .articles{padding:24px 28px}
-  .articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  @media(max-width:980px){ .articles-grid{grid-template-columns:repeat(2,1fr)} }
-  @media(max-width:560px){ .articles-grid{grid-template-columns:1fr} }
-  .article{background:white;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(20,20,20,0.06);border:1px solid rgba(120,100,85,0.05)}
-  .article img{width:100%;height:160px;object-fit:cover}
-  .article .body{padding:12px}
-  .article h4{margin:0;color:var(--accent)}
-  .meta{font-size:13px;color:var(--muted);margin-top:6px}
-
-  /* FOOTER */
-  footer{padding:24px 28px;color:var(--muted);font-size:14px;border-top:1px solid rgba(120,100,85,0.04);margin-top:20px}
-
-  /* small helpers */
-  .muted{color:var(--muted)}
-  .pill{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(139,94,60,0.08);color:var(--accent);font-weight:600}
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .center{text-align:center}
-
-  /* forms */
-  .form-row{display:flex;gap:12px}
-  .form-row input, .form-row select {flex:1}
-  input, select {padding:10px;border-radius:8px;border:1px solid rgba(120,100,85,0.08);font-size:14px}
-  label{font-size:13px;color:var(--muted)}
-
-  /* modal */
-  .modal-back{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;align-items:center;justify-content:center;z-index:120}
-  .modal{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 20px 60px rgba(20,20,20,0.12);width:420px;max-width:94%}
-  .modal h3{margin:0 0 10px;color:var(--accent)}
-  .modal .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
-
-  .note{font-size:13px;color:var(--muted)}
+    body {
+        font-family: Arial, sans-serif;
+        background: #fdf6e3;
+        color: #5d4037;
+        margin:0;
+        padding:0;
+    }
+    .container {
+        width: 400px;
+        max-width: 90%;
+        margin: 50px auto;
+        padding: 20px;
+        background: #fff8f0;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+        text-align:center;
+        margin-bottom:20px;
+    }
+    .form-group {
+        margin-bottom:15px;
+    }
+    label {
+        display:block;
+        margin-bottom:5px;
+    }
+    input {
+        width:100%;
+        padding:8px;
+        box-sizing:border-box;
+        border:1px solid #d7ccc8;
+        border-radius:5px;
+    }
+    button {
+        width:100%;
+        padding:10px;
+        background:#a1887f;
+        color:#fff;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+        font-size:16px;
+    }
+    button:hover {
+        background:#8d6e63;
+    }
+    .form-message {
+        margin-bottom:10px;
+        text-align:center;
+    }
+    a {
+        color:#5d4037;
+    }
+    #dashboard {
+        width: 90%;
+        max-width: 1000px;
+        margin: 20px auto;
+    }
+    .section {
+        background: #fff8f0;
+        padding:20px;
+        margin-bottom:20px;
+        border-radius:10px;
+    }
+    .flex {
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+    }
+    .flex button {
+        flex:1;
+    }
 </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<header class="navbar" role="banner">
-  <div class="nav-left">
-    <button class="hamburger" id="hamburger" aria-label="Open menu" title="Menu">
-      <!-- simple hamburger icon -->
-      <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="20" height="2" rx="1" fill="#8b5e3c"/>
-        <rect y="6" width="20" height="2" rx="1" fill="#8b5e3c"/>
-        <rect y="12" width="20" height="2" rx="1" fill="#8b5e3c"/>
-      </svg>
-    </button>
-
-    <div class="brand" aria-hidden="true">
-      <img src="https://images.unsplash.com/photo-1542223616-36e4f3269ef2?q=80&w=80&auto=format&fit=crop&ixlib=rb-4.0.3&s=2a6e4a1ee0bf2d4aaef6cfeee3d25a0b" alt="" style="height:36px;border-radius:8px;vertical-align:middle;margin-right:10px;display:inline-block">
-      Expense Cracker
+<div id="loginSection" class="container">
+    <h2>Login</h2>
+    <div class="form-message" id="loginMessage"></div>
+    <div class="form-group">
+        <label>Email:</label>
+        <input type="email" id="loginEmail">
     </div>
-  </div>
-
-  <div class="nav-right">
-    <nav aria-label="Primary">
-      <a class="pill" href="#features">Resources</a>
-    </nav>
-    <button class="btn btn-login" id="btnLoginTop">Login</button>
-    <button class="btn btn-sign" id="btnSignTop">Sign up</button>
-  </div>
-</header>
-
-<!-- Slide-out menu -->
-<div class="menu-backdrop" id="menuBackdrop"></div>
-<aside class="side-menu" id="sideMenu" aria-hidden="true">
-  <h4>Explore</h4>
-  <ul>
-    <li onclick="scrollToSection('features')">Banking & Budgeting</li>
-    <li onclick="scrollToSection('savings')">Budget Planning</li>
-    <li onclick="scrollToSection('invest')">Investment Planning</li>
-    <li onclick="scrollToSection('safety')">Scams & Online Safety</li>
-    <li onclick="scrollToSection('insurance')">Insurance</li>
-    <li onclick="scrollToSection('manage')">Manage Your Money</li>
-    <li onclick="scrollToSection('articles')">Articles & Guides</li>
-  </ul>
-
-  <hr style="margin:12px 0;border:none;border-top:1px solid rgba(120,100,85,0.04)">
-
-  <div style="display:flex;gap:8px">
-    <button class="btn-sign" style="flex:1" id="menuSign">Create account</button>
-    <button class="btn btn-login" style="flex:1" id="menuLogin">Login</button>
-  </div>
-
-  <p style="margin-top:14px" class="note">Quick links & helpful resources to guide students and new earners.</p>
-</aside>
-
-<!-- HERO -->
-<section class="hero" role="region" aria-label="Hero">
-  <div class="hero-left">
-    <span class="eyebrow">Money help • Student friendly</span>
-    <h1 class="headline">Make smarter choices with your money — one step at a time</h1>
-    <p class="lede">Track expenses, plan budgets, and learn simple investing basics. Resources for students and new earners — practical, friendly, and action-focused.</p>
-
-    <div class="hero-ctas">
-      <button class="btn btn-sign" id="ctaSign">Get started — Sign up</button>
-      <button class="btn btn-login" id="ctaLogin">Learn more — Login</button>
+    <div class="form-group">
+        <label>Password:</label>
+        <input type="password" id="loginPassword">
     </div>
-
-    <div style="margin-top:18px" aria-hidden="true">
-      <div style="display:flex;gap:12px;margin-top:14px">
-        <div class="card-hero" style="flex:1">
-          <strong style="display:block;color:var(--accent)">Weekly spending</strong>
-          <div class="muted" style="margin-top:6px">See where your money goes and set a simple weekly budget.</div>
-        </div>
-        <div class="card-hero" style="flex:1">
-          <strong style="display:block;color:var(--accent)">Save goals</strong>
-          <div class="muted" style="margin-top:6px">Create small, realistic saving goals for the month.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="hero-right" aria-hidden="true">
-    <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2d4b6c5fbb2c5d6b3c5086a5b4b7d9c3" alt="money and notes">
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section id="features" class="features" role="region" aria-label="Features">
-  <div class="feature">
-    <img src="https://images.unsplash.com/photo-1601597114397-5b2b1c3d7ad1?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=31c6a8f6b8f7c6e9a6f2b1a6d7f0ab3d" alt="">
-    <div>
-      <h5>Budgeting</h5>
-      <p>Simple steps to track weekly spending and set realistic budgets using our easy tracker.</p>
-    </div>
-  </div>
-
-  <div class="feature">
-    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=9b7f8c8cf8e2b3b0a1b2c3d4e5f6a7b8" alt="">
-    <div>
-      <h5>Saving</h5>
-      <p>Micro-saving tips for students — start with small goals, build momentum, and celebrate progress.</p>
-    </div>
-  </div>
-
-  <div class="feature">
-    <img src="https://images.unsplash.com/photo-1531168675123-6a6b2b6b8e0a?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=5e6d7b3a4c2b9a8d7e6f1c2b3a4d5e6f" alt="">
-    <div>
-      <h5>Investing</h5>
-      <p>Beginner-friendly ideas for growing your money safely — basic concepts explained simply.</p>
-    </div>
-  </div>
-
-  <div class="feature">
-    <img src="https://images.unsplash.com/photo-1508385082359-f2e9f1b8a14d?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=d3bfc7b6e9a6b8c8d9e1f2a3b4c5d6e7" alt="">
-    <div>
-      <h5>Scams & Safety</h5>
-      <p>Simple rules to stay safe online: spotting scams, protecting your accounts, and avoiding fraud.</p>
-    </div>
-  </div>
-
-  <div class="feature">
-    <img src="https://images.unsplash.com/photo-1489945052260-4f21c52268b8?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d" alt="">
-    <div>
-      <h5>Insurance Basics</h5>
-      <p>Understand basic insurance terms and what matters for students and young adults.</p>
-    </div>
-  </div>
-
-  <div class="feature">
-    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d" alt="">
-    <div>
-      <h5>Tips & Tools</h5>
-      <p>Practical tools, calculators and motivational ideas to help form better money habits.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ARTICLES -->
-<section id="articles" class="articles" role="region" aria-label="Articles">
-  <h3 style="margin:0 0 12px;color:var(--accent)">Guides & Articles</h3>
-  <div class="articles-grid">
-    <article class="article">
-      <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7f6f6e6d5c4b3a2f1e0d9c8b7a6e5d4c" alt="">
-      <div class="body">
-        <h4>5 Student Budget Hacks That Actually Work</h4>
-        <div class="meta">Budgeting • 4 min read</div>
-        <p class="note" style="margin-top:8px">Little changes — like packing lunch or tracking transport — can save more than you think. Try one this week.</p>
-      </div>
-    </article>
-
-    <article class="article">
-      <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=ff6a9e3a4c2b9a8d7a6f5e4b3c2d1e0f" alt="">
-      <div class="body">
-        <h4>Beginner Guide: Investing for Young Adults</h4>
-        <div class="meta">Investing • 6 min read</div>
-        <p class="note" style="margin-top:8px">A friendly intro to how to grow your money without taking unnecessary risks.</p>
-      </div>
-    </article>
-
-    <article class="article">
-      <img src="https://images.unsplash.com/photo-1488998427799-e3362cec87c9?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=c9b8a7d6e5f4a3b2c1d0e9f8a7b6c5d4" alt="">
-      <div class="body">
-        <h4>How to Spot Online Scams — Quick Checklist</h4>
-        <div class="meta">Safety • 3 min read</div>
-        <p class="note" style="margin-top:8px">Never give out passwords or OTPs. This short checklist helps you stay safe online.</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center">
-    <div>
-      <strong style="color:var(--accent)">Expense Cracker</strong>
-      <div class="muted">Practical money tips & simple tools for students.</div>
-    </div>
-    <div class="muted">© <span id="year"></span> Expense Cracker • All rights reserved</div>
-  </div>
-</footer>
-
-<!-- Login Modal -->
-<div class="modal-back" id="modalBack">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-    <h3 id="loginTitle">Login</h3>
-    <label>Email or username</label>
-    <input id="loginModalEmail" type="text" placeholder="Email or username">
-    <label style="margin-top:8px">Password</label>
-    <input id="loginModalPass" type="password" placeholder="Password">
-    <div class="actions">
-      <button id="loginSubmit">Login</button>
-      <button id="loginCancel" class="btn-login">Cancel</button>
-    </div>
-    <p class="note" style="margin-top:10px">For demo this site keeps accounts locally on your machine only.</p>
-  </div>
+    <button id="loginBtn">Login</button>
+    <p>Don't have an account? <a href="#" id="goSignup">Sign up here</a></p>
 </div>
 
-<!-- Register Modal -->
-<div class="modal-back" id="modalBackReg">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="regTitle">
-    <h3 id="regTitle">Create an Account</h3>
-    <label>Full name</label>
-    <input id="reg_name" type="text" placeholder="Your full name">
-    <label style="margin-top:8px">Email</label>
-    <input id="reg_email" type="email" placeholder="you@example.com">
-    <div class="form-row" style="margin-top:8px">
-      <div><label>Profession</label><input id="reg_prof" type="text" placeholder="e.g., Student"></div>
-      <div><label>Age</label><input id="reg_age" type="number" placeholder="Age" min="12" max="120"></div>
+<div id="signupSection" class="container" style="display:none;">
+    <h2>Sign Up</h2>
+    <div class="form-message" id="signupMessage"></div>
+    <div class="form-group">
+        <label>Name:</label>
+        <input type="text" id="name">
     </div>
-    <label style="margin-top:8px">City / Location</label>
-    <input id="reg_city" type="text" placeholder="City">
-    <label style="margin-top:8px">Phone</label>
-    <input id="reg_phone" type="text" placeholder="+8801XXXXXXXXX">
-    <label style="margin-top:8px">Set a password</label>
-    <input id="reg_pass" type="password" placeholder="Create a password (min 4)">
-    <div class="actions">
-      <button id="regSubmit">Create account</button>
-      <button id="regCancel" class="btn-login">Cancel</button>
+    <div class="form-group">
+        <label>Email:</label>
+        <input type="email" id="email">
     </div>
-    <p class="note" style="margin-top:8px">Your registration is saved locally for demo purposes only.</p>
-  </div>
+    <div class="form-group">
+        <label>Password:</label>
+        <input type="password" id="password">
+    </div>
+    <div class="form-group">
+        <label>Age:</label>
+        <input type="number" id="age">
+    </div>
+    <div class="form-group">
+        <label>Profession:</label>
+        <input type="text" id="profession">
+    </div>
+    <div class="form-group">
+        <label>City:</label>
+        <input type="text" id="city">
+    </div>
+    <div class="form-group">
+        <label>Phone:</label>
+        <input type="tel" id="phone">
+    </div>
+    <button id="signupBtn">Sign Up</button>
+    <p>Already have an account? <a href="#" id="goLogin">Login here</a></p>
 </div>
 
+<div id="dashboard" style="display:none;">
+    <h2>Dashboard</h2>
+    <div class="section" id="profileInfo">
+        <h3>Profile Info</h3>
+        <p><strong>Name:</strong> <span id="dName"></span></p>
+        <p><strong>Email:</strong> <span id="dEmail"></span></p>
+        <p><strong>Age:</strong> <span id="dAge"></span></p>
+        <p><strong>Profession:</strong> <span id="dProfession"></span></p>
+        <p><strong>City:</strong> <span id="dCity"></span></p>
+        <p><strong>Phone:</strong> <span id="dPhone"></span></p>
+    </div>
+
+    <div class="section" id="addExpense">
+        <h3>Add Expense</h3>
+        <div class="form-group">
+            <label>Description:</label>
+            <input type="text" id="expenseDesc">
+        </div>
+        <div class="form-group">
+            <label>Amount:</label>
+            <input type="number" id="expenseAmount">
+        </div>
+        <button id="addExpenseBtn">Add Expense</button>
+    </div>
+
+    <div class="section" id="graphSection">
+        <h3>Expenses Graph</h3>
+        <div class="flex">
+            <button data-period="weekly" class="graphBtn">Weekly</button>
+            <button data-period="monthly" class="graphBtn">Monthly</button>
+            <button data-period="yearly" class="graphBtn">Yearly</button>
+        </div>
+        <canvas id="expenseChart" height="150"></canvas>
+    </div>
+
+    <div class="section" id="challenges">
+        <h3>Challenges</h3>
+        <ul>
+            <li>Save 20% of your income this month</li>
+            <li>Limit daily spending to $50</li>
+            <li>Track all expenses for a week</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <button id="logoutBtn">Logout</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // small helpers
-  const $ = id => document.getElementById(id);
-  document.getElementById('year').textContent = new Date().getFullYear();
+const loginSection = document.getElementById('loginSection');
+const signupSection = document.getElementById('signupSection');
+const dashboard = document.getElementById('dashboard');
 
-  // MENU logic
-  const hamburger = $('hamburger'), sideMenu = $('sideMenu'), menuBackdrop = $('menuBackdrop');
-  function openMenu(){ sideMenu.classList.add('open'); menuBackdrop.style.display='block'; sideMenu.setAttribute('aria-hidden','false'); }
-  function closeMenu(){ sideMenu.classList.remove('open'); menuBackdrop.style.display='none'; sideMenu.setAttribute('aria-hidden','true'); }
-  hamburger.addEventListener('click', openMenu); menuBackdrop.addEventListener('click', closeMenu);
-  document.getElementById('menuLogin').addEventListener('click', ()=>{ closeMenu(); openLogin(); });
-  document.getElementById('menuSign').addEventListener('click', ()=>{ closeMenu(); openRegister(); });
+// Switch sections
+document.getElementById('goSignup').onclick = () => {
+    loginSection.style.display='none';
+    signupSection.style.display='block';
+};
+document.getElementById('goLogin').onclick = () => {
+    signupSection.style.display='none';
+    loginSection.style.display='block';
+};
 
-  function scrollToSection(id){
-    const el = document.getElementById(id);
-    if (el) { el.scrollIntoView({behavior:'smooth', block:'start'}); closeMenu(); }
-  }
+// Sign Up
+document.getElementById('signupBtn').onclick = () => {
+    const user = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        age: document.getElementById('age').value,
+        profession: document.getElementById('profession').value,
+        city: document.getElementById('city').value,
+        phone: document.getElementById('phone').value,
+        expenses: []
+    };
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    const msg = document.getElementById('signupMessage');
+    if(users.some(u=>u.email===user.email)){
+        msg.textContent = "Email already exists!";
+        msg.style.color="red";
+        return;
+    }
+    users.push(user);
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    loadDashboard();
+};
 
-  // LOGIN modal
-  const modalBack = $('modalBack'), modalBackReg = $('modalBackReg');
-  function openLogin(){ modalBack.style.display='flex'; $('loginModalEmail').focus(); }
-  function closeLogin(){ modalBack.style.display='none'; }
-  function openRegister(){ modalBackReg.style.display='flex'; $('reg_name').focus(); }
-  function closeRegister(){ modalBackReg.style.display='none'; }
+// Login
+document.getElementById('loginBtn').onclick = () => {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(u=>u.email===email && u.password===password);
+    const msg = document.getElementById('loginMessage');
+    if(user){
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        loadDashboard();
+    } else {
+        msg.textContent = "Invalid email or password!";
+        msg.style.color="red";
+    }
+};
 
-  $('btnLoginTop').addEventListener('click', openLogin);
-  $('btnSignTop').addEventListener('click', openRegister);
-  $('ctaLogin').addEventListener('click', openLogin);
-  $('ctaSign').addEventListener('click', openRegister);
+// Logout
+document.getElementById('logoutBtn').onclick = () => {
+    localStorage.removeItem('currentUser');
+    dashboard.style.display='none';
+    loginSection.style.display='block';
+};
 
-  // Cancel handlers
-  $('loginCancel').addEventListener('click', closeLogin);
-  $('regCancel').addEventListener('click', closeRegister);
+// Dashboard
+function loadDashboard(){
+    loginSection.style.display='none';
+    signupSection.style.display='none';
+    dashboard.style.display='block';
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    document.getElementById('dName').textContent = user.name;
+    document.getElementById('dEmail').textContent = user.email;
+    document.getElementById('dAge').textContent = user.age;
+    document.getElementById('dProfession').textContent = user.profession;
+    document.getElementById('dCity').textContent = user.city;
+    document.getElementById('dPhone').textContent = user.phone;
+    updateChart('weekly');
+}
 
-  // Local storage users (simple demo)
-  const USERS_KEY = 'ec_demo_users_v1';
-  function usersRead(){ try { return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); } catch(e) { return []; } }
-  function usersWrite(u){ localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+// Add Expense
+document.getElementById('addExpenseBtn').onclick = () => {
+    const desc = document.getElementById('expenseDesc').value;
+    const amt = parseFloat(document.getElementById('expenseAmount').value);
+    if(!desc || !amt) return;
+    let user = JSON.parse(localStorage.getItem('currentUser'));
+    user.expenses.push({desc, amt, date: new Date().toISOString()});
+    localStorage.setItem('currentUser', JSON.stringify(user));
 
-  // Register handler
-  $('regSubmit').addEventListener('click', ()=>{
-    const name = $('reg_name').value.trim();
-    const email = $('reg_email').value.trim().toLowerCase();
-    const prof = $('reg_prof').value.trim();
-    const age = $('reg_age').value.trim();
-    const city = $('reg_city').value.trim();
-    const phone = $('reg_phone').value.trim();
-    const pass = $('reg_pass').value;
-    if (!name || !email || pass.length < 4){ alert('Please fill name, email and a password (>=4)'); return; }
-    const users = usersRead();
-    if (users.find(u=>u.email===email)){ alert('Email already registered'); return; }
-    const id = Date.now().toString(36);
-    users.push({ id, name, email, prof, age, city, phone, password: pass, created: new Date().toISOString() });
-    usersWrite(users);
-    alert('Account created — saved locally for demo. You can now login.');
-    closeRegister();
-  });
+    // Update in users array
+    let users = JSON.parse(localStorage.getItem('users'));
+    const index = users.findIndex(u=>u.email===user.email);
+    users[index] = user;
+    localStorage.setItem('users', JSON.stringify(users));
 
-  // Login handler
-  $('loginSubmit').addEventListener('click', ()=>{
-    const identifier = $('loginModalEmail').value.trim().toLowerCase();
-    const pass = $('loginModalPass').value;
-    if (!identifier || !pass){ alert('Enter email/username and password'); return; }
-    const users = usersRead();
-    const user = users.find(u => (u.email===identifier || u.name.toLowerCase()===identifier) && u.password===pass);
-    if (!user){ alert('User not found or wrong password'); return; }
-    // simulate login: save current user id to localStorage session
-    localStorage.setItem('ec_demo_session', JSON.stringify({ userId: user.id }));
-    closeLogin();
-    // show simple profile view: replace hero with small profile card or redirect to profile page (for now show alert)
-    alert(`Welcome back, ${user.name}! For the demo, your profile is saved locally.`);
-    // You could redirect to a dashboard page here if you build it later.
-  });
+    document.getElementById('expenseDesc').value='';
+    document.getElementById('expenseAmount').value='';
+    updateChart(document.querySelector('.graphBtn.active')?.dataset.period || 'weekly');
+};
 
-  // Close modals on ESC
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') { closeLogin(); closeRegister(); closeMenu(); }
-  });
+// Graph.js
+let chart;
+const ctx = document.getElementById('expenseChart').getContext('2d');
 
-  // optional small UX: close modals when clicking outside
-  modalBack.addEventListener('click', (ev)=> { if (ev.target === modalBack) closeLogin(); });
-  modalBackReg.addEventListener('click', (ev)=> { if (ev.target === modalBackReg) closeRegister(); });
+function updateChart(period){
+    document.querySelectorAll('.graphBtn').forEach(btn=>btn.classList.remove('active'));
+    document.querySelector(`.graphBtn[data-period="${period}"]`).classList.add('active');
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    let labels=[], data=[];
+    const now = new Date();
+    if(period==='weekly'){
+        labels = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+        data = labels.map((d,i)=>{
+            const day = new Date();
+            day.setDate(now.getDate()-now.getDay()+i);
+            return user.expenses.filter(e=>new Date(e.date).toDateString()===day.toDateString()).reduce((sum,e)=>sum+e.amt,0);
+        });
+    } else if(period==='monthly'){
+        labels = Array.from({length:30},(_,i)=>i+1);
+        data = labels.map(d=>{
+            return user.expenses.filter(e=>new Date(e.date).getDate()===d).reduce((sum,e)=>sum+e.amt,0);
+        });
+    } else if(period==='yearly'){
+        labels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        data = labels.map((m,i)=>{
+            return user.expenses.filter(e=>new Date(e.date).getMonth()===i).reduce((sum,e)=>sum+e.amt,0);
+        });
+    }
 
-  // small accessibility: trap focus not implemented (demo)
+    if(chart) chart.destroy();
+    chart = new Chart(ctx,{
+        type:'bar',
+        data:{
+            labels,
+            datasets:[{
+                label:'Expenses ($)',
+                data,
+                backgroundColor:'#a1887f'
+            }]
+        },
+        options:{responsive:true, plugins:{legend:{display:false}}}
+    });
+}
+
+// Graph buttons
+document.querySelectorAll('.graphBtn').forEach(btn=>{
+    btn.onclick = ()=>updateChart(btn.dataset.period);
+});
+
+// Auto load dashboard if user is logged in
+if(localStorage.getItem('currentUser')) loadDashboard();
 </script>
+
 </body>
 </html>
 
