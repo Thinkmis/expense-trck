@@ -3,363 +3,413 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Expense Cracker — Soft Beige</title>
+<title>Expense Cracker — Money Guide</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f5efe6;         /* page background */
-    --card:#fffaf3;       /* card */
-    --accent:#8b5e3c;     /* dark brown */
-    --accent-2:#c79a6a;   /* light brown */
-    --muted:#7a6b60;      /* text muted */
+    --bg:#F7ECDD;         /* page background (soft beige) */
+    --card:#FDF4E9;       /* card background (very soft cream) */
+    --accent:#8b5e3c;     /* dark brown text/accent */
+    --accent-2:#c79a6a;   /* light golden brown accent */
+    --muted:#7a6b60;      /* muted text */
     --danger:#e06a4a;
     --success:#5aa172;
+    --glass: rgba(255,255,255,0.7);
   }
   *{box-sizing:border-box}
   body{
-    margin:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: var(--bg); color:#2f2722; -webkit-font-smoothing:antialiased;
-    padding:28px;
+    margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial; background:linear-gradient(180deg,var(--bg), #fff); color:#2f2722;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
   }
 
-  .wrap{max-width:920px;margin:0 auto;display:grid;grid-template-columns:360px 1fr;gap:20px;}
-  @media(max-width:880px){ .wrap{grid-template-columns:1fr;padding:12px;} }
-
-  .card{
-    background:var(--card); padding:18px;border-radius:12px;box-shadow:0 10px 40px rgba(35,25,18,0.06);
+  /* NAVBAR */
+  .navbar{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px 28px; background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+    position:sticky; top:0; z-index:50; border-bottom:1px solid rgba(120,100,85,0.06);
   }
-  h1{margin:0 0 6px;font-size:20px;color:var(--accent)}
-  p.muted{margin:0;color:var(--muted);font-size:13px}
+  .nav-left{display:flex;align-items:center;gap:12px}
+  .hamburger{width:44px;height:44px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;border:1px solid rgba(120,100,85,0.06);cursor:pointer}
+  .hamburger:focus{outline:2px solid rgba(139,94,60,0.18)}
+  .brand{font-weight:700;color:var(--accent);font-size:20px}
+  .nav-right{display:flex;align-items:center;gap:10px}
+  .btn{padding:8px 12px;border-radius:10px;font-weight:600;border:none;cursor:pointer}
+  .btn-login{background:transparent;color:var(--accent);border:1px solid rgba(139,94,60,0.12)}
+  .btn-sign{background:linear-gradient(180deg,var(--accent),var(--accent-2));color:white}
 
-  /* input row */
-  label{display:block;font-size:13px;color:var(--muted);margin-top:10px}
-  input[type="text"], input[type="number"], select {
-    width:100%; padding:10px 12px; margin-top:6px; border-radius:8px; border:1px solid rgba(120,100,85,0.12);
-    background:white; font-size:15px; color:#2f2722;
-  }
-  .row{display:flex; gap:10px}
-  .row > *{flex:1}
+  /* SLIDE MENU */
+  .menu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.25);display:none;z-index:60}
+  .side-menu{position:fixed;left:0;top:0;height:100%;width:320px;background:var(--card);box-shadow: 8px 0 30px rgba(30,20,10,0.12);transform:translateX(-110%);transition:transform .36s;z-index:70;padding:20px}
+  .side-menu.open{transform:translateX(0)}
+  .side-menu h4{margin:0 0 10px;color:var(--accent)}
+  .side-menu ul{list-style:none;padding:0;margin:8px 0 0}
+  .side-menu li{padding:8px 6px;border-radius:8px;color:var(--muted);cursor:pointer}
+  .side-menu li:hover{background:rgba(120,100,85,0.04);color:var(--accent)}
 
-  button{
-    background:linear-gradient(180deg,var(--accent),var(--accent-2)); color:white; border:none; padding:10px 12px;
-    border-radius:10px; cursor:pointer; font-weight:600; box-shadow:0 6px 18px rgba(139,94,60,0.12);
-  }
-  button.ghost{background:transparent;color:var(--accent); border:1px solid rgba(139,94,60,0.12); box-shadow:none}
-  button.danger{background:var(--danger)}
-  .small{font-size:13px;padding:8px 10px;border-radius:8px}
+  /* HERO */
+  .hero{display:grid;grid-template-columns:1fr 460px;gap:28px;align-items:center;padding:36px 28px;}
+  @media(max-width:980px){ .hero{grid-template-columns:1fr;padding:20px;}}
+  .hero-left{max-width:760px}
+  .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(199,154,106,0.12);color:var(--accent);font-weight:600;font-size:13px}
+  .headline{font-size:34px;margin:18px 0 12px;color:var(--accent);line-height:1.06}
+  .lede{color:var(--muted);font-size:16px;margin-bottom:18px}
+  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .card-hero{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 14px 40px rgba(30,20,10,0.06);border:1px solid rgba(120,100,85,0.04)}
 
-  /* expense list */
-  .empty{color:var(--muted);padding:14px;border-radius:8px;background:rgba(120,100,85,0.03);text-align:center}
-  .expense-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-  .expense-card{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;background:linear-gradient(180deg,#fff,#fffaf6);border:1px solid rgba(120,100,85,0.04)}
-  .left{display:flex;gap:12px;align-items:center}
-  .badge{font-size:13px;padding:6px 8px;border-radius:8px;background:rgba(199,154,106,0.12);color:var(--accent);font-weight:600}
-  .desc{font-size:14px;color:#2f2722}
-  .amt{font-weight:700;color:var(--accent)}
-  .trash{background:transparent;border:none;color:var(--danger);cursor:pointer;font-weight:700}
+  .hero-right { border-radius:12px; overflow:hidden; box-shadow:0 12px 36px rgba(30,20,10,0.06); }
+  .hero-right img{display:block;width:100%;height:100%;object-fit:cover;min-height:260px}
 
-  /* top summary */
-  .summary{margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-  .summary .box{background:rgba(199,154,106,0.06);padding:10px;border-radius:8px;flex:1;text-align:center}
-  .summary strong{display:block;font-size:20px;color:var(--accent)}
+  /* FEATURES */
+  .features{padding:24px 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:980px){ .features{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:560px){ .features{grid-template-columns:1fr} }
+  .feature{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(120,100,85,0.04);display:flex;gap:12px;align-items:flex-start}
+  .feature img{width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0}
+  .feature h5{margin:0 0 6px;color:var(--accent)}
+  .feature p{margin:0;color:var(--muted);font-size:14px}
 
-  /* animation area */
-  .anim-wrap{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;pointer-events:none;z-index:1000}
-  .anim-modal{pointer-events:auto;background:linear-gradient(180deg,#fffaf3,#fff6ed);border:1px solid rgba(120,100,85,0.09);padding:22px;border-radius:16px;box-shadow:0 20px 60px rgba(45,30,20,0.12);text-align:center;max-width:420px}
-  .check{width:80px;height:80px;border-radius:50%;background:var(--success);display:inline-flex;align-items:center;justify-content:center;color:white;font-size:38px;margin:0 auto 12px;transform:scale(0);animation:pop .45s forwards}
-  @keyframes pop{to{transform:scale(1)}}
+  /* ARTICLES */
+  .articles{padding:24px 28px}
+  .articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:980px){ .articles-grid{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:560px){ .articles-grid{grid-template-columns:1fr} }
+  .article{background:white;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(20,20,20,0.06);border:1px solid rgba(120,100,85,0.05)}
+  .article img{width:100%;height:160px;object-fit:cover}
+  .article .body{padding:12px}
+  .article h4{margin:0;color:var(--accent)}
+  .meta{font-size:13px;color:var(--muted);margin-top:6px}
 
-  .confetti-piece{position:absolute;width:10px;height:16px;border-radius:3px;opacity:0;transform:translateY(-20px) rotate(0deg)}
-  /* spawn animations will be set inline */
+  /* FOOTER */
+  footer{padding:24px 28px;color:var(--muted);font-size:14px;border-top:1px solid rgba(120,100,85,0.04);margin-top:20px}
 
-  .msg{font-size:16px;color:#3e3129; margin-bottom:8px}
-  .sub{color:var(--muted);font-size:13px}
+  /* small helpers */
+  .muted{color:var(--muted)}
+  .pill{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(139,94,60,0.08);color:var(--accent);font-weight:600}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .center{text-align:center}
 
-  footer.note{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+  /* forms */
+  .form-row{display:flex;gap:12px}
+  .form-row input, .form-row select {flex:1}
+  input, select {padding:10px;border-radius:8px;border:1px solid rgba(120,100,85,0.08);font-size:14px}
+  label{font-size:13px;color:var(--muted)}
+
+  /* modal */
+  .modal-back{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;align-items:center;justify-content:center;z-index:120}
+  .modal{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 20px 60px rgba(20,20,20,0.12);width:420px;max-width:94%}
+  .modal h3{margin:0 0 10px;color:var(--accent)}
+  .modal .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
+
+  .note{font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body>
 
-<div class="wrap" role="main">
-  <!-- Left column: add expense -->
-  <div class="card">
-    <h1>Expense Cracker</h1>
-    <p class="muted">Quick daily logging • student-friendly • soft beige theme</p>
+<!-- NAVBAR -->
+<header class="navbar" role="banner">
+  <div class="nav-left">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" title="Menu">
+      <!-- simple hamburger icon -->
+      <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="20" height="2" rx="1" fill="#8b5e3c"/>
+        <rect y="6" width="20" height="2" rx="1" fill="#8b5e3c"/>
+        <rect y="12" width="20" height="2" rx="1" fill="#8b5e3c"/>
+      </svg>
+    </button>
 
-    <label for="category">Category</label>
-    <select id="category" aria-label="Category">
-      <option value="Food">Food</option>
-      <option value="Transport">Transport</option>
-      <option value="Shopping">Shopping</option>
-      <option value="Bills">Bills</option>
-      <option value="Medicine">Medicine</option>
-      <option value="Fun">Fun</option>
-      <option value="Other">Other (custom)</option>
-    </select>
-
-    <div id="customWrap" style="display:none">
-      <label for="custom">Custom category</label>
-      <input id="custom" type="text" placeholder="Type custom category name">
+    <div class="brand" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1542223616-36e4f3269ef2?q=80&w=80&auto=format&fit=crop&ixlib=rb-4.0.3&s=2a6e4a1ee0bf2d4aaef6cfeee3d25a0b" alt="" style="height:36px;border-radius:8px;vertical-align:middle;margin-right:10px;display:inline-block">
+      Expense Cracker
     </div>
-
-    <label for="desc">Description</label>
-    <input id="desc" type="text" placeholder="e.g., lunch at canteen, bus fare">
-
-    <label for="amt">Amount (৳)</label>
-    <input id="amt" type="number" placeholder="0.00" min="0" step="0.01">
-
-    <div style="display:flex;gap:10px;margin-top:12px">
-      <button id="addBtn">Add Expense</button>
-      <button id="clearToday" class="ghost small">Clear Today</button>
-    </div>
-
-    <div class="summary" aria-live="polite">
-      <div class="box">
-        <small class="muted">Today total</small>
-        <strong id="total">৳0.00</strong>
-      </div>
-      <div class="box">
-        <small class="muted">Entries</small>
-        <strong id="count">0</strong>
-      </div>
-    </div>
-
-    <div style="margin-top:14px">
-      <button id="endDay" style="width:100%; margin-top:12px; background:linear-gradient(180deg,#c79a6a,#8b5e3c);">End of Day — Done ✔</button>
-    </div>
-
-    <footer class="note">Tip: press <strong>Enter</strong> in description or amount to add faster.</footer>
   </div>
 
-  <!-- Right column: list -->
-  <div class="card">
-    <h3>Today's Expenses</h3>
-    <div id="listWrap">
-      <div class="empty" id="emptyMsg">No expenses yet. Add one — it's quick.</div>
-      <div class="expense-list" id="list"></div>
+  <div class="nav-right">
+    <nav aria-label="Primary">
+      <a class="pill" href="#features">Resources</a>
+    </nav>
+    <button class="btn btn-login" id="btnLoginTop">Login</button>
+    <button class="btn btn-sign" id="btnSignTop">Sign up</button>
+  </div>
+</header>
+
+<!-- Slide-out menu -->
+<div class="menu-backdrop" id="menuBackdrop"></div>
+<aside class="side-menu" id="sideMenu" aria-hidden="true">
+  <h4>Explore</h4>
+  <ul>
+    <li onclick="scrollToSection('features')">Banking & Budgeting</li>
+    <li onclick="scrollToSection('savings')">Budget Planning</li>
+    <li onclick="scrollToSection('invest')">Investment Planning</li>
+    <li onclick="scrollToSection('safety')">Scams & Online Safety</li>
+    <li onclick="scrollToSection('insurance')">Insurance</li>
+    <li onclick="scrollToSection('manage')">Manage Your Money</li>
+    <li onclick="scrollToSection('articles')">Articles & Guides</li>
+  </ul>
+
+  <hr style="margin:12px 0;border:none;border-top:1px solid rgba(120,100,85,0.04)">
+
+  <div style="display:flex;gap:8px">
+    <button class="btn-sign" style="flex:1" id="menuSign">Create account</button>
+    <button class="btn btn-login" style="flex:1" id="menuLogin">Login</button>
+  </div>
+
+  <p style="margin-top:14px" class="note">Quick links & helpful resources to guide students and new earners.</p>
+</aside>
+
+<!-- HERO -->
+<section class="hero" role="region" aria-label="Hero">
+  <div class="hero-left">
+    <span class="eyebrow">Money help • Student friendly</span>
+    <h1 class="headline">Make smarter choices with your money — one step at a time</h1>
+    <p class="lede">Track expenses, plan budgets, and learn simple investing basics. Resources for students and new earners — practical, friendly, and action-focused.</p>
+
+    <div class="hero-ctas">
+      <button class="btn btn-sign" id="ctaSign">Get started — Sign up</button>
+      <button class="btn btn-login" id="ctaLogin">Learn more — Login</button>
     </div>
 
-    <div style="margin-top:12px">
-      <label for="viewRange">Show last</label>
-      <select id="viewRange" style="width:120px;margin-top:6px">
-        <option value="1">Today</option>
-        <option value="7">7 days</option>
-        <option value="30" selected>30 days</option>
-      </select>
+    <div style="margin-top:18px" aria-hidden="true">
+      <div style="display:flex;gap:12px;margin-top:14px">
+        <div class="card-hero" style="flex:1">
+          <strong style="display:block;color:var(--accent)">Weekly spending</strong>
+          <div class="muted" style="margin-top:6px">See where your money goes and set a simple weekly budget.</div>
+        </div>
+        <div class="card-hero" style="flex:1">
+          <strong style="display:block;color:var(--accent)">Save goals</strong>
+          <div class="muted" style="margin-top:6px">Create small, realistic saving goals for the month.</div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div class="hero-right" aria-hidden="true">
+    <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2d4b6c5fbb2c5d6b3c5086a5b4b7d9c3" alt="money and notes">
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="features" role="region" aria-label="Features">
+  <div class="feature">
+    <img src="https://images.unsplash.com/photo-1601597114397-5b2b1c3d7ad1?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=31c6a8f6b8f7c6e9a6f2b1a6d7f0ab3d" alt="">
+    <div>
+      <h5>Budgeting</h5>
+      <p>Simple steps to track weekly spending and set realistic budgets using our easy tracker.</p>
+    </div>
+  </div>
+
+  <div class="feature">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=9b7f8c8cf8e2b3b0a1b2c3d4e5f6a7b8" alt="">
+    <div>
+      <h5>Saving</h5>
+      <p>Micro-saving tips for students — start with small goals, build momentum, and celebrate progress.</p>
+    </div>
+  </div>
+
+  <div class="feature">
+    <img src="https://images.unsplash.com/photo-1531168675123-6a6b2b6b8e0a?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=5e6d7b3a4c2b9a8d7e6f1c2b3a4d5e6f" alt="">
+    <div>
+      <h5>Investing</h5>
+      <p>Beginner-friendly ideas for growing your money safely — basic concepts explained simply.</p>
+    </div>
+  </div>
+
+  <div class="feature">
+    <img src="https://images.unsplash.com/photo-1508385082359-f2e9f1b8a14d?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=d3bfc7b6e9a6b8c8d9e1f2a3b4c5d6e7" alt="">
+    <div>
+      <h5>Scams & Safety</h5>
+      <p>Simple rules to stay safe online: spotting scams, protecting your accounts, and avoiding fraud.</p>
+    </div>
+  </div>
+
+  <div class="feature">
+    <img src="https://images.unsplash.com/photo-1489945052260-4f21c52268b8?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d" alt="">
+    <div>
+      <h5>Insurance Basics</h5>
+      <p>Understand basic insurance terms and what matters for students and young adults.</p>
+    </div>
+  </div>
+
+  <div class="feature">
+    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d" alt="">
+    <div>
+      <h5>Tips & Tools</h5>
+      <p>Practical tools, calculators and motivational ideas to help form better money habits.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES -->
+<section id="articles" class="articles" role="region" aria-label="Articles">
+  <h3 style="margin:0 0 12px;color:var(--accent)">Guides & Articles</h3>
+  <div class="articles-grid">
+    <article class="article">
+      <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7f6f6e6d5c4b3a2f1e0d9c8b7a6e5d4c" alt="">
+      <div class="body">
+        <h4>5 Student Budget Hacks That Actually Work</h4>
+        <div class="meta">Budgeting • 4 min read</div>
+        <p class="note" style="margin-top:8px">Little changes — like packing lunch or tracking transport — can save more than you think. Try one this week.</p>
+      </div>
+    </article>
+
+    <article class="article">
+      <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=ff6a9e3a4c2b9a8d7a6f5e4b3c2d1e0f" alt="">
+      <div class="body">
+        <h4>Beginner Guide: Investing for Young Adults</h4>
+        <div class="meta">Investing • 6 min read</div>
+        <p class="note" style="margin-top:8px">A friendly intro to how to grow your money without taking unnecessary risks.</p>
+      </div>
+    </article>
+
+    <article class="article">
+      <img src="https://images.unsplash.com/photo-1488998427799-e3362cec87c9?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=c9b8a7d6e5f4a3b2c1d0e9f8a7b6c5d4" alt="">
+      <div class="body">
+        <h4>How to Spot Online Scams — Quick Checklist</h4>
+        <div class="meta">Safety • 3 min read</div>
+        <p class="note" style="margin-top:8px">Never give out passwords or OTPs. This short checklist helps you stay safe online.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center">
+    <div>
+      <strong style="color:var(--accent)">Expense Cracker</strong>
+      <div class="muted">Practical money tips & simple tools for students.</div>
+    </div>
+    <div class="muted">© <span id="year"></span> Expense Cracker • All rights reserved</div>
+  </div>
+</footer>
+
+<!-- Login Modal -->
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <h3 id="loginTitle">Login</h3>
+    <label>Email or username</label>
+    <input id="loginModalEmail" type="text" placeholder="Email or username">
+    <label style="margin-top:8px">Password</label>
+    <input id="loginModalPass" type="password" placeholder="Password">
+    <div class="actions">
+      <button id="loginSubmit">Login</button>
+      <button id="loginCancel" class="btn-login">Cancel</button>
+    </div>
+    <p class="note" style="margin-top:10px">For demo this site keeps accounts locally on your machine only.</p>
   </div>
 </div>
 
-<!-- animation overlay (hidden until end day) -->
-<div class="anim-wrap" id="animWrap" style="display:none">
-  <!-- confetti pieces appended dynamically -->
-  <div class="anim-modal" role="dialog" aria-modal="true" aria-labelledby="animTitle">
-    <div class="check" aria-hidden="true">✓</div>
-    <div class="msg" id="animTitle">You're doing great — nice work today.</div>
-    <div class="sub" id="animSub">Small steps add up. Keep it steady.</div>
-    <div style="margin-top:12px">
-      <button id="animClose" class="ghost">Close</button>
-      <button id="animSave" style="margin-left:8px">Keep Entries</button>
+<!-- Register Modal -->
+<div class="modal-back" id="modalBackReg">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="regTitle">
+    <h3 id="regTitle">Create an Account</h3>
+    <label>Full name</label>
+    <input id="reg_name" type="text" placeholder="Your full name">
+    <label style="margin-top:8px">Email</label>
+    <input id="reg_email" type="email" placeholder="you@example.com">
+    <div class="form-row" style="margin-top:8px">
+      <div><label>Profession</label><input id="reg_prof" type="text" placeholder="e.g., Student"></div>
+      <div><label>Age</label><input id="reg_age" type="number" placeholder="Age" min="12" max="120"></div>
     </div>
+    <label style="margin-top:8px">City / Location</label>
+    <input id="reg_city" type="text" placeholder="City">
+    <label style="margin-top:8px">Phone</label>
+    <input id="reg_phone" type="text" placeholder="+8801XXXXXXXXX">
+    <label style="margin-top:8px">Set a password</label>
+    <input id="reg_pass" type="password" placeholder="Create a password (min 4)">
+    <div class="actions">
+      <button id="regSubmit">Create account</button>
+      <button id="regCancel" class="btn-login">Cancel</button>
+    </div>
+    <p class="note" style="margin-top:8px">Your registration is saved locally for demo purposes only.</p>
   </div>
 </div>
 
 <script>
-(function(){
-  // Elements
-  const category = document.getElementById('category');
-  const customWrap = document.getElementById('customWrap');
-  const custom = document.getElementById('custom');
-  const desc = document.getElementById('desc');
-  const amt = document.getElementById('amt');
-  const addBtn = document.getElementById('addBtn');
-  const clearToday = document.getElementById('clearToday');
-  const endDay = document.getElementById('endDay');
-  const list = document.getElementById('list');
-  const emptyMsg = document.getElementById('emptyMsg');
-  const totalEl = document.getElementById('total');
-  const countEl = document.getElementById('count');
-  const animWrap = document.getElementById('animWrap');
-  const animClose = document.getElementById('animClose');
-  const animSave = document.getElementById('animSave');
-  const viewRange = document.getElementById('viewRange');
+  // small helpers
+  const $ = id => document.getElementById(id);
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Storage key
-  const KEY = 'ec_expenses_v1';
+  // MENU logic
+  const hamburger = $('hamburger'), sideMenu = $('sideMenu'), menuBackdrop = $('menuBackdrop');
+  function openMenu(){ sideMenu.classList.add('open'); menuBackdrop.style.display='block'; sideMenu.setAttribute('aria-hidden','false'); }
+  function closeMenu(){ sideMenu.classList.remove('open'); menuBackdrop.style.display='none'; sideMenu.setAttribute('aria-hidden','true'); }
+  hamburger.addEventListener('click', openMenu); menuBackdrop.addEventListener('click', closeMenu);
+  document.getElementById('menuLogin').addEventListener('click', ()=>{ closeMenu(); openLogin(); });
+  document.getElementById('menuSign').addEventListener('click', ()=>{ closeMenu(); openRegister(); });
 
-  // Load expenses (array of {id, date, category, desc, amt})
-  let expenses = JSON.parse(localStorage.getItem(KEY) || '[]');
-
-  // Helpers
-  function todayStr(date = new Date()){
-    const y = date.getFullYear(), m = String(date.getMonth()+1).padStart(2,'0'), d = String(date.getDate()).padStart(2,'0');
-    return `${y}-${m}-${d}`;
+  function scrollToSection(id){
+    const el = document.getElementById(id);
+    if (el) { el.scrollIntoView({behavior:'smooth', block:'start'}); closeMenu(); }
   }
 
-  function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+  // LOGIN modal
+  const modalBack = $('modalBack'), modalBackReg = $('modalBackReg');
+  function openLogin(){ modalBack.style.display='flex'; $('loginModalEmail').focus(); }
+  function closeLogin(){ modalBack.style.display='none'; }
+  function openRegister(){ modalBackReg.style.display='flex'; $('reg_name').focus(); }
+  function closeRegister(){ modalBackReg.style.display='none'; }
 
-  function save(){ localStorage.setItem(KEY, JSON.stringify(expenses)); }
+  $('btnLoginTop').addEventListener('click', openLogin);
+  $('btnSignTop').addEventListener('click', openRegister);
+  $('ctaLogin').addEventListener('click', openLogin);
+  $('ctaSign').addEventListener('click', openRegister);
 
-  function formatAmt(n){ return '৳' + parseFloat(n).toFixed(2); }
+  // Cancel handlers
+  $('loginCancel').addEventListener('click', closeLogin);
+  $('regCancel').addEventListener('click', closeRegister);
 
-  // Add expense
-  function addExpense(){
-    const cat = (category.value === 'Other') ? (custom.value.trim() || 'Other') : category.value;
-    const d = desc.value.trim() || '(no note)';
-    const a = parseFloat(amt.value);
-    if (!a || a <= 0) { alert('Enter a valid amount'); amt.focus(); return; }
-    const item = { id: uid(), date: todayStr(), category: cat, desc: d, amt: parseFloat(a) };
-    expenses.push(item);
-    save();
-    render();
-    // reset inputs quickly
-    desc.value = '';
-    amt.value = '';
-    if (category.value === 'Other') custom.value = '';
-    desc.focus();
-  }
+  // Local storage users (simple demo)
+  const USERS_KEY = 'ec_demo_users_v1';
+  function usersRead(){ try { return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); } catch(e) { return []; } }
+  function usersWrite(u){ localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
 
-  // Delete
-  function removeExpense(id){
-    if (!confirm('Delete this entry?')) return;
-    expenses = expenses.filter(e => e.id !== id);
-    save();
-    render();
-  }
-
-  // Clear today
-  function clearTodayFn(){
-    if (!confirm('Clear all entries for today?')) return;
-    const t = todayStr();
-    expenses = expenses.filter(e => e.date !== t);
-    save();
-    render();
-  }
-
-  // Render list based on viewRange
-  function render(){
-    const range = parseInt(viewRange.value || 1, 10);
-    const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - (range-1));
-    const cutoffStr = todayStr(cutoff);
-    const show = expenses.filter(e => e.date >= cutoffStr).sort((a,b)=> b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
-    list.innerHTML = '';
-    if (!show.length) { emptyMsg.style.display = 'block'; } else { emptyMsg.style.display = 'none'; }
-    let total = 0;
-    show.forEach(e => {
-      total += Number(e.amt);
-      const card = document.createElement('div');
-      card.className = 'expense-card';
-      card.innerHTML = `
-        <div class="left">
-          <div class="badge">${escapeHtml(e.category)}</div>
-          <div>
-            <div class="desc">${escapeHtml(e.desc)}</div>
-            <div style="font-size:12px;color:var(--muted)">${e.date}</div>
-          </div>
-        </div>
-        <div style="text-align:right">
-          <div class="amt">${formatAmt(e.amt)}</div>
-          <button class="trash" title="Delete" data-id="${e.id}">✕</button>
-        </div>
-      `;
-      list.appendChild(card);
-    });
-    // attach delete handlers
-    list.querySelectorAll('.trash').forEach(btn => {
-      btn.addEventListener('click', ()=> removeExpense(btn.dataset.id));
-    });
-    totalEl.textContent = formatAmt(total);
-    countEl.textContent = show.length;
-  }
-
-  // Escape for safety when injecting text
-  function escapeHtml(s){
-    return s.replace(/[&<>"']/g, function(m){
-      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];
-    });
-  }
-
-  // End day animation + message
-  const messages = [
-    "Nice! You handled your money responsibly today — your future self will thank you.",
-    "You showed up today. Small steps stack up into big wins. Proud of you!",
-    "Good job — tracking this is already progress. Keep breathing and keep going.",
-    "Today you made choices. That's discipline. One day at a time.",
-    "You did the important thing today: attention. Keep building the habit."
-  ];
-  function showEndDay(){
-    // show overlay
-    animWrap.style.display = 'flex';
-    // set message
-    document.getElementById('animTitle').textContent = messages[Math.floor(Math.random()*messages.length)];
-    document.getElementById('animSub').textContent = 'Tip: Keep entries — you can clear them later.';
-    spawnConfetti(30);
-    // pointer events handled by modal buttons
-  }
-
-  function closeAnim(){
-    animWrap.style.display = 'none';
-    // remove confetti pieces
-    document.querySelectorAll('.confetti-piece').forEach(n => n.remove());
-  }
-
-  // generate confetti pieces with animation
-  function spawnConfetti(n){
-    const colors = ['#c79a6a','#8b5e3c','#f2d7b2','#d3b89a','#e6cdb3'];
-    for (let i=0;i<n;i++){
-      const el = document.createElement('div');
-      el.className = 'confetti-piece';
-      el.style.background = colors[Math.floor(Math.random()*colors.length)];
-      // random start x/y
-      el.style.left = (20 + Math.random()*60) + '%';
-      el.style.top = (20 + Math.random()*20) + '%';
-      el.style.transform = `translateY(-10px) rotate(${Math.random()*360}deg)`;
-      document.getElementById('animWrap').appendChild(el);
-      // animate: fall and fade
-      const dur = 1400 + Math.random()*800;
-      el.animate([
-        { transform: `translateY(-30px) rotate(${Math.random()*360}deg)`, opacity:1 },
-        { transform: `translateY(${120 + Math.random()*120}px) rotate(${Math.random()*720}deg)`, opacity:0 }
-      ], { duration: dur, easing:'cubic-bezier(.2,.8,.2,1)'});
-      // remove after
-      setTimeout(()=> el.remove(), dur+100);
-    }
-  }
-
-  // When animSave clicked -> keep entries and close
-  function animSaveFn(){ closeAnim(); }
-
-  // Event wiring
-  category.addEventListener('change', ()=> {
-    customWrap.style.display = (category.value === 'Other') ? 'block' : 'none';
-    if (category.value !== 'Other') custom.value = '';
+  // Register handler
+  $('regSubmit').addEventListener('click', ()=>{
+    const name = $('reg_name').value.trim();
+    const email = $('reg_email').value.trim().toLowerCase();
+    const prof = $('reg_prof').value.trim();
+    const age = $('reg_age').value.trim();
+    const city = $('reg_city').value.trim();
+    const phone = $('reg_phone').value.trim();
+    const pass = $('reg_pass').value;
+    if (!name || !email || pass.length < 4){ alert('Please fill name, email and a password (>=4)'); return; }
+    const users = usersRead();
+    if (users.find(u=>u.email===email)){ alert('Email already registered'); return; }
+    const id = Date.now().toString(36);
+    users.push({ id, name, email, prof, age, city, phone, password: pass, created: new Date().toISOString() });
+    usersWrite(users);
+    alert('Account created — saved locally for demo. You can now login.');
+    closeRegister();
   });
 
-  addBtn.addEventListener('click', addExpense);
-  clearToday.addEventListener('click', clearTodayFn);
-  endDay.addEventListener('click', showEndDay);
-  animClose.addEventListener('click', closeAnim);
-  animSave.addEventListener('click', animSaveFn);
-
-  // Enter key support on desc, amt, custom
-  [desc, amt, custom].forEach(el => {
-    el.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') { e.preventDefault(); addExpense(); }
-    });
+  // Login handler
+  $('loginSubmit').addEventListener('click', ()=>{
+    const identifier = $('loginModalEmail').value.trim().toLowerCase();
+    const pass = $('loginModalPass').value;
+    if (!identifier || !pass){ alert('Enter email/username and password'); return; }
+    const users = usersRead();
+    const user = users.find(u => (u.email===identifier || u.name.toLowerCase()===identifier) && u.password===pass);
+    if (!user){ alert('User not found or wrong password'); return; }
+    // simulate login: save current user id to localStorage session
+    localStorage.setItem('ec_demo_session', JSON.stringify({ userId: user.id }));
+    closeLogin();
+    // show simple profile view: replace hero with small profile card or redirect to profile page (for now show alert)
+    alert(`Welcome back, ${user.name}! For the demo, your profile is saved locally.`);
+    // You could redirect to a dashboard page here if you build it later.
   });
 
-  // viewRange change re-render
-  viewRange.addEventListener('change', render);
+  // Close modals on ESC
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeLogin(); closeRegister(); closeMenu(); }
+  });
 
-  // initial render
-  render();
+  // optional small UX: close modals when clicking outside
+  modalBack.addEventListener('click', (ev)=> { if (ev.target === modalBack) closeLogin(); });
+  modalBackReg.addEventListener('click', (ev)=> { if (ev.target === modalBackReg) closeRegister(); });
 
-  // For convenience: keep focus on description
-  desc.focus();
-
-  // expose remove (optional)
-  window._ec = { addExpense };
-
-})();
+  // small accessibility: trap focus not implemented (demo)
 </script>
 </body>
 </html>
+
