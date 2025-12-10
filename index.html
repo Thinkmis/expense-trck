@@ -1310,7 +1310,7 @@
   <!-- Dashboard Tabs -->
   <div class="dashboard-tabs">
     <button class="tab-btn active" data-tab="addExpense">Add Expense</button>
-    <button class="tab-btn" data-tab="graphs">Graphs & Analysis</button>
+
     <button class="tab-btn" data-tab="profile">Your Profile</button>
     <button class="tab-btn" data-tab="challenges">Challenges</button>
   </div>
@@ -1426,49 +1426,7 @@
     </div>
   </div>
 
-  <!-- Graphs Tab -->
-  <div class="dashboard-content" id="graphsTab">
-    <!-- Monthly Category Chart -->
-    <div class="category-chart-container">
-      <h3>Monthly Spending by Category</h3>
-      <canvas id="categoryChart" class="category-chart-canvas"></canvas>
-    </div>
-    
-    <!-- Category Summary -->
-    <div class="recent-expenses">
-      <h3>Category Breakdown for <span id="currentMonthDisplay">January 2024</span></h3>
-      <div class="category-summary" id="categorySummary">
-        <p style="color:var(--muted); text-align:center; padding:20px;">No expense data available</p>
-      </div>
-    </div>
-    
-    <!-- Line Charts Container -->
-    <div class="chart-container">
-      <div class="chart-tabs">
-        <button class="chart-tab active" data-period="weekly">Weekly</button>
-        <button class="chart-tab" data-period="monthly">Monthly</button>
-        <button class="chart-tab" data-period="yearly">Yearly</button>
-      </div>
-      <canvas id="expenseChart" class="chart-canvas"></canvas>
-    </div>
-    
-    <!-- Data Management -->
-    <div class="data-management">
-      <h3>Data Management</h3>
-      <p class="note">Export your data to prevent loss. Data is stored locally in your browser.</p>
-      
-      <div class="data-actions">
-        <button class="btn btn-sign" id="exportDataBtn">Export All Data</button>
-        <button class="btn btn-login" id="importDataBtn">Import Data</button>
-        <button class="btn btn-danger" id="clearAllDataBtn">Clear All Data</button>
-      </div>
-      
-      <div class="backup-warning">
-        <strong>⚠️ Important:</strong> Your data is stored in your browser's local storage. Clearing browser data will delete all your expenses. Export regularly to backup!
-      </div>
-    </div>
-  </div>
-
+   
   <!-- Profile Tab -->
   <div class="dashboard-content" id="profileTab">
     <div class="profile-container">
@@ -2783,15 +2741,7 @@
           const tabId = btn.dataset.tab + 'Tab';
           $(tabId).classList.add('active');
           
-          // Update chart if needed
-          if (btn.dataset.tab === 'graphs' && currentUser) {
-            const activePeriod = document.querySelector('.chart-tab.active')?.dataset.period || 'weekly';
-            const expenses = expensesRead();
-            const userExpenses = expenses.filter(exp => exp.userId === currentUser.id);
-            updateChart(userExpenses, activePeriod);
-            updateCategoryChart(userExpenses);
-            updateCategorySummary(userExpenses);
-          }
+          
         });
       });
       
