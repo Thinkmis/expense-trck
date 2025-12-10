@@ -412,6 +412,85 @@
     font-size: 14px;
     line-height: 1.5;
   }
+
+  /* NEW SECTIONS FOR NAVIGATION FIX */
+  .safety-section, .insurance-section, .manage-section, .savings-section, .invest-section {
+    padding: 60px 28px;
+    background: var(--card);
+    margin: 30px 28px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(30, 20, 10, 0.08);
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .section-header h2 {
+    color: var(--accent);
+    font-size: 32px;
+    margin-bottom: 15px;
+  }
+  
+  .section-header p {
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 18px;
+  }
+  
+  .content-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  .content-block {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(120, 100, 85, 0.06);
+  }
+  
+  .content-block h3 {
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-size: 22px;
+  }
+  
+  .warning-box {
+    background: rgba(224, 106, 74, 0.1);
+    border-left: 4px solid var(--danger);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+  
+  .warning-box h4 {
+    color: var(--danger);
+    margin-bottom: 10px;
+  }
+  
+  .checklist {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .checklist li {
+    padding: 8px 0 8px 30px;
+    position: relative;
+    color: var(--muted);
+  }
+  
+  .checklist li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--success);
+    font-weight: bold;
+  }
 </style>
 </head>
 <body>
@@ -428,7 +507,7 @@
     </button>
 
     <div class="brand" aria-hidden="true">
-      <img src="https://images.unsplash.com/photo-1542223616-36e4f3269ef2?q=80&w=80&auto=format&fit=crop&ixlib=rb-4.0.3&s=2a6e4a1ee0bf2d4aaef6cfeee3d25a0b" alt="" class="brand-logo">
+      <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=100&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Expense Tracker Logo" class="brand-logo">
       Expense Tracker
     </div>
   </div>
@@ -467,13 +546,15 @@
   <h4>Explore</h4>
   <ul>
     <li onclick="scrollToSection('features')">Banking & Budgeting</li>
-    <li onclick="scrollToSection('expandedFeatures')">Money Management Guides</li>
-    <li onclick="scrollToSection('imageGallery')">Financial Inspiration</li>
-    <li onclick="scrollToSection('quickTips')">Quick Money Tips</li>
+    <li onclick="scrollToSection('savings')">Budget Planning</li>
+    <li onclick="scrollToSection('invest')">Investment Planning</li>
     <li onclick="scrollToSection('safety')">Scams & Online Safety</li>
     <li onclick="scrollToSection('insurance')">Insurance</li>
     <li onclick="scrollToSection('manage')">Manage Your Money</li>
     <li onclick="scrollToSection('articles')">Articles & Guides</li>
+    <li onclick="scrollToSection('expandedFeatures')">Money Management Guides</li>
+    <li onclick="scrollToSection('imageGallery')">Financial Inspiration</li>
+    <li onclick="scrollToSection('quickTips')">Quick Money Tips</li>
   </ul>
 
   <hr style="margin:12px 0;border:none;border-top:1px solid rgba(120,100,85,0.04)">
@@ -515,7 +596,7 @@
     </div>
 
     <div class="hero-right" aria-hidden="true">
-      <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2d4b6c5fbb2c5d6b3c5086a5b4b7d9c3" alt="money and notes">
+      <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Financial dashboard showing budget tracking and expense management on laptop">
     </div>
   </section>
 
@@ -606,7 +687,7 @@
   <!-- FEATURES -->
   <section id="features" class="features" role="region" aria-label="Features">
     <div class="feature">
-      <img src="https://images.unsplash.com/photo-1601597114397-5b2b1c3d7ad1?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=31c6a8f6b8f7c6e9a6f2b1a6d7f0ab3d" alt="Budgeting illustration">
+      <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Budgeting illustration">
       <div>
         <h5>Smart Budgeting</h5>
         <p>Simple steps to track weekly spending and set realistic budgets using our easy tracker. Perfect for student life.</p>
@@ -614,7 +695,7 @@
     </div>
 
     <div class="feature">
-      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=9b7f8c8cf8e2b3b0a1b2c3d4e5f6a7b8" alt="Saving illustration">
+      <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Saving illustration">
       <div>
         <h5>Micro-Saving</h5>
         <p>Start with small goals, build momentum, and celebrate progress. Designed specifically for student budgets.</p>
@@ -622,7 +703,7 @@
     </div>
 
     <div class="feature">
-      <img src="https://images.unsplash.com/photo-1531168675123-6a6b2b6b8e0a?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=5e6d7b3a4c2b9a8d7e6f1c2b3a4d5e6f" alt="Investing illustration">
+      <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Investing illustration">
       <div>
         <h5>Beginner Investing</h5>
         <p>Learn how to grow your money safely with beginner-friendly concepts explained simply. No prior knowledge needed.</p>
@@ -630,7 +711,7 @@
     </div>
 
     <div class="feature">
-      <img src="https://images.unsplash.com/photo-1508385082359-f2e9f1b8a14d?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=d3bfc7b6e9a6b8c8d9e1f2a3b4c5d6e7" alt="Safety illustration">
+      <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Online safety illustration">
       <div>
         <h5>Online Safety</h5>
         <p>Simple rules to stay safe online: spotting scams, protecting your accounts, and avoiding common fraud tactics.</p>
@@ -638,7 +719,7 @@
     </div>
 
     <div class="feature">
-      <img src="https://images.unsplash.com/photo-1489945052260-4f21c52268b8?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d" alt="Insurance illustration">
+      <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Insurance illustration">
       <div>
         <h5>Insurance Basics</h5>
         <p>Understand basic insurance terms and what matters for students and young adults. Make informed decisions.</p>
@@ -646,10 +727,209 @@
     </div>
 
     <div class="feature">
-      <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d" alt="Tools illustration">
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tools illustration">
       <div>
         <h5>Practical Tools</h5>
         <p>Calculators, templates and motivational ideas to help form better money habits. All in one place.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUDGET PLANNING SECTION -->
+  <section id="savings" class="savings-section">
+    <div class="section-header">
+      <h2>Budget Planning Made Simple</h2>
+      <p>Learn how to create and stick to a budget that works for your student lifestyle</p>
+    </div>
+    
+    <div class="content-columns">
+      <div class="content-block">
+        <h3>50/30/20 Rule</h3>
+        <p>Allocate 50% of your income to needs (rent, food, bills), 30% to wants (entertainment, dining out), and 20% to savings and debt repayment.</p>
+        <div class="tips-list">
+          <strong>Quick Budgeting Tips:</strong>
+          <ul>
+            <li>Track expenses for a month before setting budget</li>
+            <li>Use apps to automate expense tracking</li>
+            <li>Review and adjust budget monthly</li>
+            <li>Include a "miscellaneous" category for unexpected expenses</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="content-block">
+        <h3>Zero-Based Budgeting</h3>
+        <p>Give every dollar a job. Your income minus expenses should equal zero. This ensures you're controlling where every penny goes.</p>
+        <div class="tips-list">
+          <strong>Implementation Steps:</strong>
+          <ul>
+            <li>List all income sources</li>
+            <li>List all expenses (fixed and variable)</li>
+            <li>Assign remaining money to savings goals</li>
+            <li>Track spending throughout the month</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTMENT PLANNING SECTION -->
+  <section id="invest" class="invest-section">
+    <div class="section-header">
+      <h2>Investment Planning for Beginners</h2>
+      <p>Start your investment journey with confidence using these beginner-friendly strategies</p>
+    </div>
+    
+    <div class="content-columns">
+      <div class="content-block">
+        <h3>Start Small, Think Long</h3>
+        <p>You don't need thousands to start investing. Begin with small, regular contributions to build the habit.</p>
+        <div class="tips-list">
+          <strong>First Steps:</strong>
+          <ul>
+            <li>Start with just ৳500-1000 monthly</li>
+            <li>Consider low-cost index funds</li>
+            <li>Use automated investment apps</li>
+            <li>Reinvest dividends for compound growth</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="content-block">
+        <h3>Diversification Basics</h3>
+        <p>Don't put all your eggs in one basket. Spread investments across different assets to reduce risk.</p>
+        <div class="tips-list">
+          <strong>Diversification Tips:</strong>
+          <ul>
+            <li>Mix stocks, bonds, and cash equivalents</li>
+            <li>Consider different sectors and industries</li>
+            <li>Include international investments</li>
+            <li>Rebalance portfolio annually</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCAMS & ONLINE SAFETY SECTION -->
+  <section id="safety" class="safety-section">
+    <div class="section-header">
+      <h2>Scams & Online Safety</h2>
+      <p>Protect your money and personal information with these essential digital safety practices</p>
+    </div>
+    
+    <div class="content-columns">
+      <div class="content-block">
+        <h3>Common Financial Scams</h3>
+        <p>Learn to recognize and avoid the most common scams targeting students and young adults.</p>
+        <div class="warning-box">
+          <h4>⚠️ Warning Signs</h4>
+          <p>Unsolicited requests for personal information, pressure to act immediately, too-good-to-be-true investment returns, requests for payment via gift cards or cryptocurrency.</p>
+        </div>
+        <div class="tips-list">
+          <strong>Red Flags to Watch For:</strong>
+          <ul>
+            <li>Grammatical errors and poor quality websites</li>
+            <li>Requests for upfront fees</li>
+            <li>Pressure to make quick decisions</li>
+            <li>Offers that seem too good to be true</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="content-block">
+        <h3>Secure Online Banking</h3>
+        <p>Bank safely in the digital age with these essential precautions.</p>
+        <div class="tips-list">
+          <strong>Safety Measures:</strong>
+          <ul>
+            <li>Only use official bank apps from verified sources</li>
+            <li>Avoid public Wi-Fi for financial transactions</li>
+            <li>Regularly monitor account activity</li>
+            <li>Set up transaction alerts for all accounts</li>
+            <li>Keep banking apps and devices updated</li>
+            <li>Use strong, unique passwords for each account</li>
+            <li>Enable two-factor authentication</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSURANCE SECTION -->
+  <section id="insurance" class="insurance-section">
+    <div class="section-header">
+      <h2>Insurance Basics</h2>
+      <p>Understand insurance essentials for students and young adults</p>
+    </div>
+    
+    <div class="content-columns">
+      <div class="content-block">
+        <h3>Health Insurance Essentials</h3>
+        <p>Why health insurance matters even for young, healthy individuals and how to choose the right plan.</p>
+        <div class="tips-list">
+          <strong>Key Considerations:</strong>
+          <ul>
+            <li>Check if you're covered under parents' plan (usually until 26)</li>
+            <li>Understand deductibles and co-pays</li>
+            <li>Look for student health insurance plans</li>
+            <li>Consider catastrophic coverage for emergencies</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="content-block">
+        <h3>Renter's Insurance</h3>
+        <p>Protect your belongings in dorm rooms or apartments with affordable renter's insurance.</p>
+        <div class="tips-list">
+          <strong>What to Know:</strong>
+          <ul>
+            <li>Typically costs $15-$30 per month</li>
+            <li>Covers theft, fire, water damage</li>
+            <li>Provides liability protection</li>
+            <li>May cover items outside your residence</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANAGE YOUR MONEY SECTION -->
+  <section id="manage" class="manage-section">
+    <div class="section-header">
+      <h2>Manage Your Money Effectively</h2>
+      <p>Practical strategies to take control of your finances and build wealth</p>
+    </div>
+    
+    <div class="content-columns">
+      <div class="content-block">
+        <h3>Debt Management</h3>
+        <p>Strategies for managing and paying off student loans, credit cards, and other debts.</p>
+        <div class="tips-list">
+          <strong>Debt Reduction Strategies:</strong>
+          <ul>
+            <li>Avalanche method: Pay highest interest first</li>
+            <li>Snowball method: Pay smallest balances first</li>
+            <li>Consolidate high-interest debts</li>
+            <li>Always pay more than minimum payments</li>
+            <li>Avoid taking on new debt while paying off old</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="content-block">
+        <h3>Building Credit Responsibly</h3>
+        <p>How to build and maintain good credit as a student or young adult.</p>
+        <div class="tips-list">
+          <strong>Credit Building Tips:</strong>
+          <ul>
+            <li>Get a secured credit card to start</li>
+            <li>Keep credit utilization below 30%</li>
+            <li>Pay bills on time, every time</li>
+            <li>Check your credit report annually</li>
+            <li>Don't apply for too much credit at once</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -661,7 +941,7 @@
     <!-- Budgeting Guide -->
     <div class="expanded-feature">
       <div class="expanded-feature-header">
-        <img src="https://images.unsplash.com/photo-1601597114397-5b2b1c3d7ad1?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=31c6a8f6b8f7c6e9a6f2b1a6d7f0ab3d" alt="Budgeting" class="expanded-feature-icon">
+        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Budgeting" class="expanded-feature-icon">
         <div class="expanded-feature-title">
           <h3>Smart Budgeting Guide</h3>
           <p>Master the art of budgeting with our comprehensive guide designed for students and beginners</p>
@@ -714,7 +994,7 @@
     <!-- Saving Guide -->
     <div class="expanded-feature">
       <div class="expanded-feature-header">
-        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=9b7f8c8cf8e2b3b0a1b2c3d4e5f6a7b8" alt="Saving" class="expanded-feature-icon">
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Saving" class="expanded-feature-icon">
         <div class="expanded-feature-title">
           <h3>Micro-Saving Strategies</h3>
           <p>Learn to save effectively even with limited income through smart micro-saving techniques</p>
@@ -764,117 +1044,6 @@
         </div>
       </div>
     </div>
-    
-    <!-- Investing Guide -->
-    <div class="expanded-feature">
-      <div class="expanded-feature-header">
-        <img src="https://images.unsplash.com/photo-1531168675123-6a6b2b6b8e0a?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=5e6d7b3a4c2b9a8d7e6f1c2b3a4d5e6f" alt="Investing" class="expanded-feature-icon">
-        <div class="expanded-feature-title">
-          <h3>Beginner Investing Guide</h3>
-          <p>Start your investment journey with confidence using these beginner-friendly strategies</p>
-        </div>
-      </div>
-      
-      <div class="feature-content">
-        <div class="content-card">
-          <h4>Understanding Risk & Return</h4>
-          <p>Higher potential returns usually come with higher risk. As a beginner, focus on understanding your personal risk tolerance.</p>
-          <div class="tips-list">
-            <strong>Risk Assessment:</strong>
-            <ul>
-              <li><strong>Low Risk:</strong> Savings accounts, government bonds</li>
-              <li><strong>Medium Risk:</strong> Index funds, corporate bonds</li>
-              <li><strong>High Risk:</strong> Individual stocks, cryptocurrencies</li>
-              <li>Start low, learn, then gradually adjust</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="content-card">
-          <h4>Dollar-Cost Averaging</h4>
-          <p>Invest a fixed amount regularly regardless of market conditions. This reduces the impact of volatility and builds discipline.</p>
-          <div class="tips-list">
-            <strong>How to Implement:</strong>
-            <ul>
-              <li>Choose a consistent investment schedule (weekly/monthly)</li>
-              <li>Invest the same amount each time</li>
-              <li>Automate if possible</li>
-              <li>Stay consistent through market ups and downs</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="content-card">
-          <h4>First Investment Steps</h4>
-          <p>Start with these simple, low-risk investment options as a beginner:</p>
-          <div class="tips-list">
-            <ul>
-              <li><strong>High-Yield Savings Account:</strong> Better interest than regular savings</li>
-              <li><strong>Index Funds:</strong> Low-cost way to invest in the entire market</li>
-              <li><strong>Robo-Advisors:</strong> Automated investment platforms for beginners</li>
-              <li><strong>Retirement Accounts:</strong> Start early for compound growth</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Online Safety Guide -->
-    <div class="expanded-feature">
-      <div class="expanded-feature-header">
-        <img src="https://images.unsplash.com/photo-1508385082359-f2e9f1b8a14d?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=d3bfc7b6e9a6b8c8d9e1f2a3b4c5d6e7" alt="Online Safety" class="expanded-feature-icon">
-        <div class="expanded-feature-title">
-          <h3>Financial Security Online</h3>
-          <p>Protect your money and personal information with these essential digital safety practices</p>
-        </div>
-      </div>
-      
-      <div class="feature-content">
-        <div class="content-card">
-          <h4>Password & Authentication</h4>
-          <p>Your first line of defense against unauthorized access to your financial accounts.</p>
-          <div class="tips-list">
-            <strong>Best Practices:</strong>
-            <ul>
-              <li>Use unique passwords for every financial account</li>
-              <li>Enable two-factor authentication everywhere possible</li>
-              <li>Use a password manager to generate and store strong passwords</li>
-              <li>Never share passwords or OTPs with anyone</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="content-card">
-          <h4>Spotting Financial Scams</h4>
-          <p>Learn to recognize common scams before you become a victim.</p>
-          <div class="tips-list">
-            <strong>Red Flags:</strong>
-            <ul>
-              <li>Unsolicited requests for personal information</li>
-              <li>Pressure to act immediately</li>
-              <li>Too-good-to-be-true investment returns</li>
-              <li>Requests for payment via gift cards or cryptocurrency</li>
-              <li>Grammatical errors and poor quality websites</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="content-card">
-          <h4>Secure Online Banking</h4>
-          <p>Bank safely in the digital age with these precautions.</p>
-          <div class="tips-list">
-            <strong>Safety Measures:</strong>
-            <ul>
-              <li>Only use official bank apps from verified sources</li>
-              <li>Avoid public Wi-Fi for financial transactions</li>
-              <li>Regularly monitor account activity</li>
-              <li>Set up transaction alerts for all accounts</li>
-              <li>Keep banking apps and devices updated</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
   </section>
 
   <!-- TESTIMONIAL -->
@@ -890,7 +1059,7 @@
     <h3 style="margin:0 0 12px;color:var(--accent);font-size:24px;">Guides & Articles</h3>
     <div class="articles-grid">
       <article class="article">
-        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7f6f6e6d5c4b3a2f1e0d9c8b7a6e5d4c" alt="Student budgeting">
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Student budgeting">
         <div class="body">
           <h4>5 Student Budget Hacks That Actually Work</h4>
           <div class="meta">Budgeting • 4 min read</div>
@@ -899,7 +1068,7 @@
       </article>
 
       <article class="article">
-        <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=ff6a9e3a4c2b9a8d7a6f5e4b3c2d1e0f" alt="Investing basics">
+        <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Investing basics">
         <div class="body">
           <h4>Beginner Guide: Investing for Young Adults</h4>
           <div class="meta">Investing • 6 min read</div>
@@ -908,7 +1077,7 @@
       </article>
 
       <article class="article">
-        <img src="https://images.unsplash.com/photo-1488998427799-e3362cec87c9?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=c9b8a7d6e5f4a3b2c1d0e9f8a7b6c5d4" alt="Online safety">
+        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Online safety">
         <div class="body">
           <h4>How to Spot Online Scams — Quick Checklist</h4>
           <div class="meta">Safety • 3 min read</div>
@@ -1183,7 +1352,12 @@
 
   function scrollToSection(id){
     const el = document.getElementById(id);
-    if (el) { el.scrollIntoView({behavior:'smooth', block:'start'}); closeMenu(); }
+    if (el) { 
+      el.scrollIntoView({behavior:'smooth', block:'start'}); 
+      closeMenu(); 
+    } else {
+      console.log('Section not found:', id);
+    }
   }
 
   // MODAL logic
