@@ -429,6 +429,266 @@
     background: linear-gradient(90deg, var(--accent), var(--accent-2));
     border-radius: 3px;
   }
+
+  /* HOMEPAGE ADDITIONAL STYLES (from second code) */
+  /* EXPANDED FEATURES SECTION */
+  .expanded-features {
+    padding: 40px 28px;
+    background: linear-gradient(180deg, var(--card), rgba(253, 244, 233, 0.3));
+  }
+  
+  .expanded-feature {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 40px rgba(30, 20, 10, 0.08);
+    border: 1px solid rgba(120, 100, 85, 0.06);
+  }
+  
+  .expanded-feature-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+  }
+  
+  .expanded-feature-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  
+  .expanded-feature-title {
+    flex: 1;
+  }
+  
+  .expanded-feature-title h3 {
+    margin: 0;
+    color: var(--accent);
+    font-size: 28px;
+  }
+  
+  .expanded-feature-title p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 16px;
+  }
+  
+  .feature-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+  }
+  
+  .content-card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(120, 100, 85, 0.05);
+  }
+  
+  .content-card h4 {
+    color: var(--accent);
+    margin: 0 0 10px;
+    font-size: 18px;
+  }
+  
+  .content-card p {
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+  
+  .tips-list {
+    background: rgba(139, 94, 60, 0.03);
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+  }
+  
+  .tips-list li {
+    margin-bottom: 8px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  
+  .tips-list strong {
+    color: var(--accent);
+  }
+
+  /* IMAGE GALLERY */
+  .image-gallery {
+    padding: 40px 28px;
+    background: linear-gradient(180deg, rgba(247, 236, 221, 0.2), var(--bg));
+  }
+  
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+  }
+  
+  .gallery-item {
+    border-radius: 12px;
+    overflow: hidden;
+    height: 200px;
+    position: relative;
+    box-shadow: 0 8px 30px rgba(30, 20, 10, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .gallery-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(139, 94, 60, 0.9);
+    color: white;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* QUICK TIPS SECTION */
+  .quick-tips {
+    padding: 40px 28px;
+    background: white;
+  }
+  
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+  }
+  
+  .tip-card {
+    background: var(--card);
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(30, 20, 10, 0.06);
+    border: 1px solid rgba(120, 100, 85, 0.04);
+  }
+  
+  .tip-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(139, 94, 60, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 24px;
+    color: var(--accent);
+  }
+  
+  .tip-card h4 {
+    margin: 0 0 10px;
+    color: var(--accent);
+  }
+  
+  .tip-card p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* NEW SECTIONS FOR NAVIGATION FIX */
+  .safety-section, .insurance-section, .manage-section, .savings-section, .invest-section {
+    padding: 60px 28px;
+    background: var(--card);
+    margin: 30px 28px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(30, 20, 10, 0.08);
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .section-header h2 {
+    color: var(--accent);
+    font-size: 32px;
+    margin-bottom: 15px;
+  }
+  
+  .section-header p {
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 18px;
+  }
+  
+  .content-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  .content-block {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(120, 100, 85, 0.06);
+  }
+  
+  .content-block h3 {
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-size: 22px;
+  }
+  
+  .warning-box {
+    background: rgba(224, 106, 74, 0.1);
+    border-left: 4px solid var(--danger);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+  
+  .warning-box h4 {
+    color: var(--danger);
+    margin-bottom: 10px;
+  }
+  
+  .checklist {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .checklist li {
+    padding: 8px 0 8px 30px;
+    position: relative;
+    color: var(--muted);
+  }
+  
+  .checklist li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--success);
+    font-weight: bold;
+  }
 </style>
 </head>
 <body>
@@ -490,6 +750,9 @@
     <li onclick="scrollToSection('insurance')">Insurance</li>
     <li onclick="scrollToSection('manage')">Manage Your Money</li>
     <li onclick="scrollToSection('articles')">Articles & Guides</li>
+    <li onclick="scrollToSection('expandedFeatures')">Money Management Guides</li>
+    <li onclick="scrollToSection('imageGallery')">Financial Inspiration</li>
+    <li onclick="scrollToSection('quickTips')">Quick Money Tips</li>
   </ul>
 
   <hr style="margin:12px 0;border:none;border-top:1px solid rgba(120,100,85,0.04)">
@@ -532,6 +795,90 @@
 
     <div class="hero-right" aria-hidden="true">
       <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Financial dashboard showing budget tracking and expense management on laptop">
+    </div>
+  </section>
+
+  <!-- IMAGE GALLERY SECTION -->
+  <section id="imageGallery" class="image-gallery" role="region" aria-label="Financial Inspiration Gallery">
+    <h2 style="text-align:center;color:var(--accent);font-size:32px;margin-bottom:10px;">Financial Success Stories</h2>
+    <p style="text-align:center;color:var(--muted);max-width:600px;margin:0 auto 30px;">Visual inspiration for your financial journey. See how others manage and grow their money.</p>
+    
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Budget planning">
+        <div class="gallery-caption">Budget Planning Session</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Financial analytics">
+        <div class="gallery-caption">Financial Analytics Dashboard</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Savings growth">
+        <div class="gallery-caption">Savings Growth Tracking</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Investment planning">
+        <div class="gallery-caption">Investment Strategy Planning</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-grid" style="padding: 0 28px;">
+    <div class="stat-card">
+      <div class="stat-number">5,000+</div>
+      <div class="stat-desc">Students using Expense Tracker</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">2.5M+</div>
+      <div class="stat-desc">Total savings tracked</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">94%</div>
+      <div class="stat-desc">Improved spending habits</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">4.8★</div>
+      <div class="stat-desc">User satisfaction rating</div>
+    </div>
+  </section>
+
+  <!-- QUICK TIPS SECTION -->
+  <section id="quickTips" class="quick-tips" role="region" aria-label="Quick Money Tips">
+    <h2 style="text-align:center;color:var(--accent);font-size:32px;margin-bottom:10px;">Quick Money Management Tips</h2>
+    <p style="text-align:center;color:var(--muted);max-width:600px;margin:0 auto 30px;">Simple, actionable tips to improve your financial health starting today</p>
+    
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">💡</div>
+        <h4>Track Every Expense</h4>
+        <p>Record every purchase, no matter how small. Awareness is the first step to better spending habits.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🎯</div>
+        <h4>Set Clear Goals</h4>
+        <p>Define specific savings targets. "Save for a laptop" works better than "save money".</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📊</div>
+        <h4>Review Weekly</h4>
+        <p>Spend 15 minutes every Sunday reviewing your week's expenses and adjusting your budget.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">💰</div>
+        <h4>Automate Savings</h4>
+        <p>Set up automatic transfers to your savings account right after you receive income.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📱</div>
+        <h4>Use Digital Tools</h4>
+        <p>Leverage apps like this Expense Tracker to simplify money management on the go.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🎉</div>
+        <h4>Celebrate Milestones</h4>
+        <p>Acknowledge when you reach savings goals—it builds positive financial habits.</p>
+      </div>
     </div>
   </section>
 
@@ -586,6 +933,317 @@
     </div>
   </section>
 
+  <!-- BUDGET PLANNING SECTION -->
+  <section id="savings" class="savings-section">
+    <div class="section-header">
+      <h2>Budget Planning Made Simple</h2>
+      <p>Learn how to create and stick to a budget that works for your student lifestyle</p>
+    </div>
+    
+    <div class="content-columns">
+      <div class="content-block">
+        <h3>50/30/20 Rule</h3>
+        <p>Allocate 50% of your income to needs (rent, food, bills), 30% to wants (entertainment, dining out), and 20% to savings and debt repayment.</p>
+        <div class="tips-list">
+          <strong>Quick Budgeting Tips:</strong>
+          <ul>
+            <li>Track expenses for a month before setting budget</li>
+            <li>Use apps to automate expense tracking</li>
+            <li>Review and adjust budget monthly</li>
+            <li>Include a "miscellaneous" category for unexpected expenses</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="content-block">
+        <h3>Zero-Based Budgeting</h3>
+        <p>Give every dollar a job. Your income minus expenses should equal zero. This ensures you're controlling where every penny goes.</p>
+        <div class="tips-list">
+          <strong>Implementation Steps:</strong>
+          <ul>
+            <li>List all income sources</li>
+            <li>List all expenses (fixed and variable)</li>
+            <li>Assign remaining money to savings goals</li>
+            <li>Track spending throughout the month</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTMENT PLANNING SECTION -->
+  <section id="invest" class="invest-section">
+    <div class="section-header">
+      <h2>Investment Planning for Beginners</h2>
+      <p>Start your investment journey with confidence using these beginner-friendly strategies</p>
+    </div>
+    
+    <div class="content-columns">
+      <div class="content-block">
+        <h3>Start Small, Think Long</h3>
+        <p>You don't need thousands to start investing. Begin with small, regular contributions to build the habit.</p>
+        <div class="tips-list">
+          <strong>First Steps:</strong>
+          <ul>
+            <li>Start with just 500-1000 monthly</li>
+            <li>Consider low-cost index funds</li>
+            <li>Use automated investment apps</li>
+            <li>Reinvest dividends for compound growth</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="content-block">
+        <h3>Diversification Basics</h3>
+        <p>Don't put all your eggs in one basket. Spread investments across different assets to reduce risk.</p>
+        <div class="tips-list">
+          <strong>Diversification Tips:</strong>
+          <ul>
+            <li>Mix stocks, bonds, and cash equivalents</li>
+            <li>Consider different sectors and industries</li>
+            <li>Include international investments</li>
+            <li>Rebalance portfolio annually</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCAMS & ONLINE SAFETY SECTION -->
+  <section id="safety" class="safety-section">
+    <div class="section-header">
+      <h2>Scams & Online Safety</h2>
+      <p>Protect your money and personal information with these essential digital safety practices</p>
+    </div>
+    
+    <div class="content-columns">
+      <div class="content-block">
+        <h3>Common Financial Scams</h3>
+        <p>Learn to recognize and avoid the most common scams targeting students and young adults.</p>
+        <div class="warning-box">
+          <h4>⚠️ Warning Signs</h4>
+          <p>Unsolicited requests for personal information, pressure to act immediately, too-good-to-be-true investment returns, requests for payment via gift cards or cryptocurrency.</p>
+        </div>
+        <div class="tips-list">
+          <strong>Red Flags to Watch For:</strong>
+          <ul>
+            <li>Grammatical errors and poor quality websites</li>
+            <li>Requests for upfront fees</li>
+            <li>Pressure to make quick decisions</li>
+            <li>Offers that seem too good to be true</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="content-block">
+        <h3>Secure Online Banking</h3>
+        <p>Bank safely in the digital age with these essential precautions.</p>
+        <div class="tips-list">
+          <strong>Safety Measures:</strong>
+          <ul>
+            <li>Only use official bank apps from verified sources</li>
+            <li>Avoid public Wi-Fi for financial transactions</li>
+            <li>Regularly monitor account activity</li>
+            <li>Set up transaction alerts for all accounts</li>
+            <li>Keep banking apps and devices updated</li>
+            <li>Use strong, unique passwords for each account</li>
+            <li>Enable two-factor authentication</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSURANCE SECTION -->
+  <section id="insurance" class="insurance-section">
+    <div class="section-header">
+      <h2>Insurance Basics</h2>
+      <p>Understand insurance essentials for students and young adults</p>
+    </div>
+    
+    <div class="content-columns">
+      <div class="content-block">
+        <h3>Health Insurance Essentials</h3>
+        <p>Why health insurance matters even for young, healthy individuals and how to choose the right plan.</p>
+        <div class="tips-list">
+          <strong>Key Considerations:</strong>
+          <ul>
+            <li>Check if you're covered under parents' plan (usually until 26)</li>
+            <li>Understand deductibles and co-pays</li>
+            <li>Look for student health insurance plans</li>
+            <li>Consider catastrophic coverage for emergencies</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="content-block">
+        <h3>Renter's Insurance</h3>
+        <p>Protect your belongings in dorm rooms or apartments with affordable renter's insurance.</p>
+        <div class="tips-list">
+          <strong>What to Know:</strong>
+          <ul>
+            <li>Typically costs $15-$30 per month</li>
+            <li>Covers theft, fire, water damage</li>
+            <li>Provides liability protection</li>
+            <li>May cover items outside your residence</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANAGE YOUR MONEY SECTION -->
+  <section id="manage" class="manage-section">
+    <div class="section-header">
+      <h2>Manage Your Money Effectively</h2>
+      <p>Practical strategies to take control of your finances and build wealth</p>
+    </div>
+    
+    <div class="content-columns">
+      <div class="content-block">
+        <h3>Debt Management</h3>
+        <p>Strategies for managing and paying off student loans, credit cards, and other debts.</p>
+        <div class="tips-list">
+          <strong>Debt Reduction Strategies:</strong>
+          <ul>
+            <li>Avalanche method: Pay highest interest first</li>
+            <li>Snowball method: Pay smallest balances first</li>
+            <li>Consolidate high-interest debts</li>
+            <li>Always pay more than minimum payments</li>
+            <li>Avoid taking on new debt while paying off old</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="content-block">
+        <h3>Building Credit Responsibly</h3>
+        <p>How to build and maintain good credit as a student or young adult.</p>
+        <div class="tips-list">
+          <strong>Credit Building Tips:</strong>
+          <ul>
+            <li>Get a secured credit card to start</li>
+            <li>Keep credit utilization below 30%</li>
+            <li>Pay bills on time, every time</li>
+            <li>Check your credit report annually</li>
+            <li>Don't apply for too much credit at once</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPANDED FEATURES SECTION -->
+  <section id="expandedFeatures" class="expanded-features" role="region" aria-label="Money Management Guides">
+    <h2 style="text-align:center;color:var(--accent);font-size:32px;margin-bottom:40px;">Complete Money Management Guides</h2>
+    
+    <!-- Budgeting Guide -->
+    <div class="expanded-feature">
+      <div class="expanded-feature-header">
+        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Budgeting" class="expanded-feature-icon">
+        <div class="expanded-feature-title">
+          <h3>Smart Budgeting Guide</h3>
+          <p>Master the art of budgeting with our comprehensive guide designed for students and beginners</p>
+        </div>
+      </div>
+      
+      <div class="feature-content">
+        <div class="content-card">
+          <h4>The 50/30/20 Rule</h4>
+          <p>Allocate 50% of your income to needs (rent, food, bills), 30% to wants (entertainment, dining out), and 20% to savings and debt repayment.</p>
+          <div class="tips-list">
+            <strong>Quick Tips:</strong>
+            <ul>
+              <li><strong>Needs First:</strong> Always cover essentials before discretionary spending</li>
+              <li><strong>Be Realistic:</strong> Adjust percentages based on your actual income</li>
+              <li><strong>Review Monthly:</strong> Your budget should evolve with your circumstances</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="content-card">
+          <h4>Zero-Based Budgeting</h4>
+          <p>Give every dollar a job. Your income minus expenses should equal zero. This ensures you're controlling where every penny goes.</p>
+          <div class="tips-list">
+            <strong>Implementation Steps:</strong>
+            <ul>
+              <li>Track all income sources for the month</li>
+              <li>List all expected expenses</li>
+              <li>Assign remaining money to savings or debt</li>
+              <li>Adjust as needed throughout the month</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="content-card">
+          <h4>Common Budgeting Mistakes</h4>
+          <p>Avoid these pitfalls that derail most beginners:</p>
+          <div class="tips-list">
+            <ul>
+              <li><strong>Being too strict:</strong> Allow some flexibility for unexpected expenses</li>
+              <li><strong>Forgetting irregular expenses:</strong> Annual subscriptions, car maintenance, etc.</li>
+              <li><strong>Not tracking small purchases:</strong> Coffee and snacks add up quickly</li>
+              <li><strong>Giving up too soon:</strong> It takes 2-3 months to perfect your budget</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Saving Guide -->
+    <div class="expanded-feature">
+      <div class="expanded-feature-header">
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Saving" class="expanded-feature-icon">
+        <div class="expanded-feature-title">
+          <h3>Micro-Saving Strategies</h3>
+          <p>Learn to save effectively even with limited income through smart micro-saving techniques</p>
+        </div>
+      </div>
+      
+      <div class="feature-content">
+        <div class="content-card">
+          <h4>The Round-Up Method</h4>
+          <p>Round up every purchase to the nearest dollar and save the difference. If you buy coffee for $3.75, save $0.25 automatically.</p>
+          <div class="tips-list">
+            <strong>Digital Tools:</strong>
+            <ul>
+              <li>Use apps that automate round-up savings</li>
+              <li>Set up a separate "round-up" savings account</li>
+              <li>Review monthly to see how small amounts accumulate</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="content-card">
+          <h4>No-Spend Challenges</h4>
+          <p>Designate periods where you only spend on essentials. Start with 24 hours, then try a weekend, then a full week.</p>
+          <div class="tips-list">
+            <strong>Challenge Rules:</strong>
+            <ul>
+              <li>Essential spending only (food, bills, transportation)</li>
+              <li>No eating out or entertainment purchases</li>
+              <li>Find free alternatives for entertainment</li>
+              <li>Track how much you save during the challenge</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="content-card">
+          <h4>Automated Saving Systems</h4>
+          <p>Set up automatic transfers that align with your income schedule. Even small, consistent amounts grow significantly over time.</p>
+          <div class="tips-list">
+            <strong>Automation Tips:</strong>
+            <ul>
+              <li>Schedule transfers right after payday</li>
+              <li>Start with just 5% of your income</li>
+              <li>Increase by 1% every 3 months</li>
+              <li>Use multiple accounts for different goals</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- TESTIMONIAL -->
   <section style="background:var(--card);padding:30px;border-radius:12px;margin:30px 28px;text-align:center;">
     <div style="font-size:18px;color:var(--accent);font-style:italic;margin-bottom:15px;">
@@ -612,7 +1270,7 @@
         <div class="body">
           <h4>Beginner Guide: Investing for Young Adults</h4>
           <div class="meta">Investing • 6 min read</div>
-          <p class="note" style="margin-top:8px">A friendly intro to how to grow your money without taking unnecessary risks. Start with just ৳500.</p>
+          <p class="note" style="margin-top:8px">A friendly intro to how to grow your money without taking unnecessary risks. Start with just 500.</p>
         </div>
       </article>
 
@@ -670,7 +1328,7 @@
       </div>
       <div class="day-stats">
         <div class="day-stat">
-          <div class="day-stat-value" id="dayTotal">৳0.00</div>
+          <div class="day-stat-value" id="dayTotal">0.00</div>
           <div class="day-stat-label">Today's Total</div>
         </div>
         <div class="day-stat">
@@ -682,7 +1340,7 @@
           <div class="day-stat-label">Top Category</div>
         </div>
         <div class="day-stat">
-          <div class="day-stat-value" id="dayAvgAmount">৳0.00</div>
+          <div class="day-stat-value" id="dayAvgAmount">0.00</div>
           <div class="day-stat-label">Avg/Entry</div>
         </div>
       </div>
@@ -691,11 +1349,11 @@
     <!-- Stats Cards -->
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-number" id="todayTotal">৳0.00</div>
+        <div class="stat-number" id="todayTotal">0.00</div>
         <div class="stat-desc">Today's Total</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number" id="monthlyTotal">৳0.00</div>
+        <div class="stat-number" id="monthlyTotal">0.00</div>
         <div class="stat-desc">This Month</div>
       </div>
       <div class="stat-card">
@@ -703,7 +1361,7 @@
         <div class="stat-desc">Total Entries</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number" id="avgDaily">৳0.00</div>
+        <div class="stat-number" id="avgDaily">0.00</div>
         <div class="stat-desc">Avg Daily</div>
       </div>
     </div>
@@ -736,7 +1394,7 @@
       </div>
       
       <div class="form-group">
-        <label for="amount">Amount (৳)</label>
+        <label for="amount">Amount ()</label>
         <input type="number" id="amount" class="form-control" placeholder="0.00" min="0" step="0.01">
       </div>
       
@@ -849,7 +1507,7 @@
         </div>
         <div class="profile-field">
           <label>Total Spent</label>
-          <div id="profileTotalSpent">৳0.00</div>
+          <div id="profileTotalSpent">0.00</div>
         </div>
         <div class="profile-field">
           <label>Days Tracked</label>
@@ -877,7 +1535,7 @@
       <div class="challenge-item">
         <div class="challenge-icon">📊</div>
         <div>
-          <div style="font-weight:600; color:var(--accent);">Limit daily spending to ৳50</div>
+          <div style="font-weight:600; color:var(--accent);">Limit daily spending to 50</div>
           <div style="font-size:12px; color:var(--muted);">Daily expense challenge</div>
         </div>
       </div>
@@ -898,7 +1556,7 @@
       <div class="challenge-item">
         <div class="challenge-icon">💰</div>
         <div>
-          <div style="font-weight:600; color:var(--accent);">Save ৳500 this week</div>
+          <div style="font-weight:600; color:var(--accent);">Save 500 this week</div>
           <div style="font-size:12px; color:var(--muted);">Weekly savings goal</div>
         </div>
       </div>
@@ -981,6 +1639,8 @@
     if (el) { 
       el.scrollIntoView({behavior:'smooth', block:'start'}); 
       closeMenu(); 
+    } else {
+      console.log('Section not found:', id);
     }
   }
 
@@ -1262,7 +1922,7 @@
               ${isToday ? '' : '<span style="color:var(--accent-2); font-weight:500;">(Archived)</span>'}
             </div>
           </div>
-          <div class="expense-amount">৳${parseFloat(exp.amount || 0).toFixed(2)}</div>
+          <div class="expense-amount">${parseFloat(exp.amount || 0).toFixed(2)}</div>
         </div>
       `).join('');
     } catch(e) {
@@ -1303,10 +1963,10 @@
       });
       
       // Update stats
-      $('dayTotal').textContent = '৳' + dayTotal.toFixed(2);
+      $('dayTotal').textContent = '' + dayTotal.toFixed(2);
       $('dayEntries').textContent = dayEntries;
       $('dayTopCategory').textContent = topCategory;
-      $('dayAvgAmount').textContent = '৳' + dayAvg.toFixed(2);
+      $('dayAvgAmount').textContent = '' + dayAvg.toFixed(2);
       
     } catch(e) {
       console.error('Error updating day stats:', e);
@@ -1356,7 +2016,7 @@
                 ${isToday ? 'Today' : formatDateDisplay(date)}
                 ${isArchived ? ' 📁' : ''}
               </div>
-              <div class="history-day-total">৳${dayTotal.toFixed(2)}</div>
+              <div class="history-day-total">${dayTotal.toFixed(2)}</div>
             </div>
             <div class="history-day-expenses">
               ${dayExpenses.length} expense${dayExpenses.length !== 1 ? 's' : ''} • 
@@ -1428,12 +2088,12 @@
       });
       
       // Update all stats
-      $('todayTotal').textContent = '৳' + todayTotal.toFixed(2);
-      $('monthlyTotal').textContent = '৳' + monthlyTotal.toFixed(2);
+      $('todayTotal').textContent = '' + todayTotal.toFixed(2);
+      $('monthlyTotal').textContent = '' + monthlyTotal.toFixed(2);
       $('totalEntries').textContent = userExpenses.length;
-      $('avgDaily').textContent = '৳' + avgDaily.toFixed(2);
+      $('avgDaily').textContent = '' + avgDaily.toFixed(2);
       $('profileTotalExpenses').textContent = userExpenses.length + ' entries';
-      $('profileTotalSpent').textContent = '৳' + totalSpent.toFixed(2);
+      $('profileTotalSpent').textContent = '' + totalSpent.toFixed(2);
       $('profileDaysTracked').textContent = dates.length + ' days';
       $('profileFavoriteCategory').textContent = favoriteCategory;
       
@@ -1513,7 +2173,7 @@
         data: {
           labels: labels,
           datasets: [{
-            label: 'Expenses (৳)',
+            label: 'Expenses ()',
             data: data,
             backgroundColor: 'rgba(139, 94, 60, 0.1)',
             borderColor: 'rgba(139, 94, 60, 1)',
@@ -1530,7 +2190,7 @@
               beginAtZero: true,
               ticks: {
                 callback: function(value) {
-                  return '৳' + value;
+                  return '' + value;
                 }
               }
             }
@@ -1591,7 +2251,7 @@
         data: {
           labels: labels,
           datasets: [{
-            label: 'Spending by Category (৳)',
+            label: 'Spending by Category ()',
             data: data,
             backgroundColor: labels.map((_, i) => colors[i % colors.length]),
             borderColor: labels.map((_, i) => colors[i % colors.length].replace('0.8', '1')),
@@ -1606,7 +2266,7 @@
               beginAtZero: true,
               ticks: {
                 callback: function(value) {
-                  return '৳' + value;
+                  return '' + value;
                 }
               }
             }
@@ -1659,7 +2319,7 @@
         return `
           <div class="category-item">
             <div class="category-name">${escapeHtml(category)}</div>
-            <div class="category-amount">৳${amount.toFixed(2)}</div>
+            <div class="category-amount">${amount.toFixed(2)}</div>
             <div class="category-count">${count} expense${count !== 1 ? 's' : ''} • ${percentage}% of total</div>
             <div class="category-percentage">
               <div class="category-fill" style="width: ${percentage}%"></div>
@@ -2012,7 +2672,7 @@
       createConfetti();
       
       // Show success message
-      showNotification(`Day archived! You tracked ${todayExpenses.length} expenses totaling ৳${todayTotal.toFixed(2)}. Great job! 🎉`);
+      showNotification(`Day archived! You tracked ${todayExpenses.length} expenses totaling ${todayTotal.toFixed(2)}. Great job! 🎉`);
       
       // Reset to today
       goToToday();
